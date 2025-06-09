@@ -1,73 +1,205 @@
 "use client";
+import { Button } from "@/components/button";
 import { WalletModal } from "@/components/connect-modal";
 import { UserNFTs } from "@/components/UserNFTs";
 import { useNFT } from "@/hooks/useNFTInteraction";
-import Link from "next/link";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useSwitchChain } from "wagmi";
 
-// function CountdownTimer({ currentPhase }: { currentPhase?: string }) {
-//   const [timeRemaining, setTimeRemaining] = useState<{
-//     days: number;
-//     hours: number;
-//     minutes: number;
-//     seconds: number;
-//   }>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+const BackgroundWrapper = () => {
+  return (
+    <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden">
+      <div className="h-[115px] flex items-center justify-center z-[1000] absolute top-[80px] left-[80px]">
+        <img
+          src="/icon/Logo_SVG.svg"
+          alt="Logo"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src="/background/lost_disc.mp4" type="video/mp4" />
+      </video>
+      <motion.div
+        className="absolute bottom-0 left-0 w-1/3 h-1/3"
+        initial={{ y: "20%", scale: 1, opacity: 1 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        transition={{
+          duration: 1,
+          ease: "easeInOut",
+        }}
+      >
+        <img
+          src="/background/left.png"
+          alt="Left layer"
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+      <motion.div
+        className="absolute bottom-0 right-0 w-0.7/3 h-1/3"
+        initial={{ y: "20%", scale: 1, opacity: 1 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        transition={{
+          duration: 1,
+          ease: "easeInOut",
+        }}
+      >
+        <img
+          src="/background/right.png"
+          alt="Right layer"
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+    </div>
+  );
+};
 
-//   useEffect(() => {
-//     const getTargetDate = () => {
-//       const whitelistEndDate = new Date("2025-04-04T13:00:00Z");
+const AudioPlayer = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-//       const fcfsEndDate = new Date("2025-04-05T13:00:00Z");
+  const tracks = ["/music/unlocked_fate.wav", "/music/we_are_monshape.wav"];
 
-//       if (currentPhase === "Whitelist" || currentPhase === "OG_SALE") {
-//         return whitelistEndDate;
-//       } else if (currentPhase === "First Come First Served") {
-//         return fcfsEndDate;
-//       }
+  // Tentative de lecture automatique au chargement
+  useEffect(() => {
+    const attemptAutoplay = async () => {
+      if (audioRef.current) {
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (error: unknown) {
+          console.log(
+            "Lecture automatique impossible - interaction utilisateur requise"
+          );
+          setIsPlaying(false);
+        }
+      }
+    };
 
-//       return whitelistEndDate;
-//     };
+    attemptAutoplay();
+  }, []);
 
-//     const calculateTimeRemaining = () => {
-//       const targetDate = getTargetDate();
-//       const now = new Date();
-//       const difference = targetDate.getTime() - now.getTime();
+  const playNext = () => {
+    const nextTrack = (currentTrack + 1) % tracks.length;
+    setCurrentTrack(nextTrack);
+    if (audioRef.current) {
+      audioRef.current.src = tracks[nextTrack];
+      if (isPlaying) {
+        audioRef.current.play().catch((error) => {
+          console.error("Erreur lors de la lecture:", error);
+        });
+      }
+    }
+  };
 
-//       if (difference <= 0) {
-//         return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-//       }
+  const playPrevious = () => {
+    const prevTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+    setCurrentTrack(prevTrack);
+    if (audioRef.current) {
+      audioRef.current.src = tracks[prevTrack];
+      if (isPlaying) {
+        audioRef.current.play().catch((error) => {
+          console.error("Erreur lors de la lecture:", error);
+        });
+      }
+    }
+  };
 
-//       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-//       const hours = Math.floor(
-//         (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-//       );
-//       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-//       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch((error) => {
+          console.error("Erreur lors de la lecture:", error);
+        });
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
-//       return { days, hours, minutes, seconds };
-//     };
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
-//     const timer = setInterval(() => {
-//       setTimeRemaining(calculateTimeRemaining());
-//     }, 1000);
+    const handleEnded = () => {
+      playNext();
+    };
 
-//     setTimeRemaining(calculateTimeRemaining());
+    audio.addEventListener("ended", handleEnded);
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, [currentTrack]);
 
-//     return () => clearInterval(timer);
-//   }, [currentPhase]);
-
-//   const formatNumber = (num: number) => (num < 10 ? `0${num}` : num);
-
-//   return (
-//     <div className="flex items-center gap-1 sm:gap-2 uppercase">
-//       {timeRemaining.days > 0 && <span>{timeRemaining.days}d</span>}
-//       <span>{formatNumber(timeRemaining.hours)}h</span>
-//       <span>{formatNumber(timeRemaining.minutes)}m</span>
-//       <span>{formatNumber(timeRemaining.seconds)}s</span>
-//     </div>
-//   );
-// }
+  return (
+    <div className="fixed min-w-[342px] w-fit bottom-[60px] bg-white/10 border rounded-xl border-white/30 h-[57px] left-[60px] z-50 backdrop-blur-sm">
+      <div className="relative pl-[95px] flex items-center justify-between gap-2 p-2 ">
+        <img
+          src="/background/music_player.gif"
+          alt="Music"
+          className="w-[126px] h-[173px] absolute bottom-1/2 translate-y-1/2 translate-x-1/2 -left-[115px] z-50"
+        />
+        <audio ref={audioRef} src={tracks[currentTrack]} />
+        <div className="flex flex-col justify-center -mt-[3px]">
+          <p
+            className="text-white text-base uppercase "
+            style={{
+              fontWeight: "800",
+            }}
+          >
+            {" "}
+            {currentTrack ? "We Are Monshape" : "Unlocked Fate"}
+          </p>
+          <p className="text-white/50 text-[9px]">Monshape.club</p>
+        </div>
+        <div className="flex items-center ml-10">
+          <button
+            onClick={playPrevious}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all"
+          >
+            <img
+              src="/icon/Playlist_Previous.svg"
+              alt="Previous"
+              className="w-4 h-4"
+            />
+          </button>{" "}
+          <button
+            onClick={togglePlay}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all"
+          >
+            {isPlaying ? (
+              <img
+                src="/icon/Playlist_Pause.svg"
+                alt="Pause"
+                className="w-4 h-5"
+              />
+            ) : (
+              <img
+                src="/icon/Playlist_Play.svg"
+                alt="Play"
+                className="w-4 h-5 rotate-180"
+              />
+            )}
+          </button>
+          <button
+            onClick={playNext}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all"
+          >
+            <img src="/icon/Playlist_Next.svg" alt="Next" className="w-4 h-4" />
+          </button>{" "}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export function NFT() {
   const { address, chainId, isDisconnected } = useAccount();
@@ -255,81 +387,92 @@ export function NFT() {
 
   return (
     <>
-      <main
-        className="min-h-screen w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out"
-        style={{
-          background: "url('/beholdak/background.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="max-w-[1100px] w-[90%] mx-auto mt-[40px] lg:mt-[40px] flex lg:flex-row flex-col items-center lg:justify-center">
-          <div className="max-w-[800px] flex flex-col lg:items-start items-center text-white font-medium text-xl lg:mt-0 mt-10">
-            <img
-              src="/beholdak/TentacleOfBeholdak.png"
-              alt="Spikynads Chad logo"
-              className="h-[200px] sm:h-[350px] mx-auto"
-            />
-
-            <div className="w-full p-5 sm:p-10 sm:border-2 rounded-xl sm:border-[#7151EB] relative">
-              <img
-                src="/beholdak/Billholdak.png"
-                alt="Spikynads Chad logo"
-                className="h-[100px] sm:h-[250px] mx-auto absolute sm:-left-[120px] -left-[0px] sm:-top-[120px] -top-[50px]"
-              />
-              <p className="text-white/90 text-base text-center sm:text-left sm:text-lg font-normal mb-4">
-                Beholdak is a forgotten creature from ancient times. Each of its
-                tentacles has its own consciousness, distinct personality, and
-                unique abilities. <br /> <br />A true collective mind within a
-                single body, it functions as a polyphonic entity: some tentacles
-                are strategic, others impulsive, mystical, or completely
-                foolish. Together, they form an unpredictable and brilliant
-                being.
-              </p>
-              <div className="w-full flex flex-col items-center justify-center mt-5 sm:mt-10">
+      <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
+        <BackgroundWrapper />
+        <div className="relative z-10  -mt-[150px]">
+          <div className="max-w-[1450px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between">
+            <div className="max-w-[436px] -ml-[60px] flex flex-col lg:items-start items-center text-white font-medium text-xl">
+              <div className="w-full p-5 sm:p-9 rounded-xl bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] relative">
+                <h1
+                  className="uppercase text-white text-3xl mb-1"
+                  style={{
+                    fontWeight: "900",
+                  }}
+                >
+                  300 Lost discs.
+                </h1>
+                <p
+                  className="text-white/90 text-base text-center sm:text-left sm:text-lg font-light"
+                  style={{
+                    fontWeight: "300",
+                  }}
+                >
+                  4 energy codes. One path to unlock the legend. Each disc holds
+                  a fragment of the Legendary Code - echoing Astraea&apos;
+                  memory, resonating with NADS, pulsing through the Monad
+                  ecosystem, and sparking ancient legacy. Mint now to receive
+                  one of four mysterious traits, each unlocking real benefits
+                  from Monshape or its ecosystem partners.
+                </p>
+              </div>
+            </div>
+            {/* MINT BUTTON */}
+            <div className="max-w-[466px] w-full">
+              <div className="w-full flex flex-col items-center justify-center">
                 {address && isWrongNetwork ? (
-                  <button
-                    className="bg-[#858585] w-[60%] justify-center mx-auto flex items-center rounded h-[60px] sm:h-[85px] py-5 text-3xl uppercase text-white transition-all duration-300 ease-in-out mt-3"
+                  <Button
+                    style={{
+                      fontWeight: "800",
+                    }}
                     onClick={handleSwitchNetwork}
                   >
                     Switch Network
-                  </button>
+                  </Button>
                 ) : null}
 
                 {!address && (
                   <WalletModal open={open} setOpen={setOpen}>
-                    <button
+                    <Button
+                      style={{
+                        fontWeight: "800",
+                      }}
                       onClick={() => setOpen(true)}
-                      className="bg-brandColor w-[60%] justify-center mx-auto flex items-center rounded h-[60px] sm:h-[85px] py-5 text-3xl uppercase text-white transition-all duration-300 ease-in-out mt-3"
                     >
                       Connect Wallet
-                    </button>
+                    </Button>
                   </WalletModal>
                 )}
 
                 {address && !isWrongNetwork && (
-                  <div className="flex items-center flex-col lg:flex-row gap-3 mt-3 w-full mb-0 uppercase">
+                  <div className="flex items-center flex-col lg:flex-row gap-3 w-full mb-0 uppercase">
                     {isSoldOut ? (
-                      <button className="bg-[#858585] w-[60%] justify-center mx-auto flex items-center rounded h-[60px] sm:h-[85px] py-5 text-3xl uppercase text-white transition-all duration-300 ease-in-out mt-3">
+                      <Button
+                        style={{
+                          fontWeight: "800",
+                        }}
+                      >
                         Sold out!
-                      </button>
+                      </Button>
                     ) : userCanMint ? (
                       <div className="flex items-center gap-5 w-full justify-center">
-                        <button
+                        <Button
+                          style={{
+                            fontWeight: "800",
+                            background:
+                              "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                            boxShadow: "0px 0px 7.1px 1px #5F2AFF",
+                          }}
                           className={`
-                        ${
-                          mintingStep === "idle" ||
-                          mintingStep === "preparing" ||
-                          mintingStep === "confirming"
-                            ? "bg-[#A314B4] hover:bg-opacity-80"
-                            : mintingStep === "success"
-                            ? "bg-[#241F6F]"
-                            : "bg-[#858585] cursor-not-allowed"
-                        } 
-                         w-[60%] justify-center mx-auto flex items-center rounded h-[60px] sm:h-[85px] py-5 text-3xl uppercase text-white transition-all duration-300 ease-in-out mt-3
-                     
-                      `}
+                          ${
+                            mintingStep === "idle" ||
+                            mintingStep === "preparing" ||
+                            mintingStep === "confirming"
+                              ? "bg-[#A314B4] hover:bg-opacity-80"
+                              : mintingStep === "success"
+                              ? "bg-[#241F6F]"
+                              : "bg-[#858585] cursor-not-allowed"
+                          } 
+                        `}
                           onClick={handleMint}
                           disabled={
                             mintingStep !== "idle" && mintingStep !== "error"
@@ -352,137 +495,174 @@ export function NFT() {
                           )}
                           {mintingStep === "idle" && (
                             <>
-                              <div className="font-medium w-full">MINT</div>
+                              <div className="w-full">MINT</div>
                             </>
                           )}
-                        </button>
+                        </Button>
                       </div>
                     ) : (
-                      <button className="bg-[#858585] w-[60%] justify-center mx-auto flex items-center rounded h-[60px] sm:h-[85px] py-5 text-3xl uppercase text-white transition-all duration-300 ease-in-out mt-3">
+                      <Button
+                        style={{
+                          fontWeight: "800",
+                        }}
+                      >
                         MINTED
-                      </button>
+                      </Button>
                     )}
                   </div>
                 )}
 
-                <div className="mt-5 p-4 w-full sm:w-[60%] bg-[#241f6f32] rounded-md">
-                  <div className="flex justify-between items-center mb-3">
+                {/* USER STATUS */}
+                {/* <div className="flex justify-between items-center mb-3">
+                  <div
+                    className={`pb-1 rounded-full flex items-center text-base sm:text-xl`}
+                  >
                     <div
-                      className={`pb-1 rounded-full flex items-center text-base sm:text-xl`}
-                    >
-                      <div
-                        className={`${
-                          isUserWL || isUserFCFS || isUserTeam
-                            ? "bg-green-600"
-                            : "bg-red-600"
-                        } h-4 w-4 mr-3 `}
-                      />
+                      className={`${
+                        isUserWL || isUserFCFS || isUserTeam
+                          ? "bg-green-600"
+                          : "bg-red-600"
+                      } h-4 w-4 mr-3 `}
+                    />
 
-                      {isDisconnected
-                        ? "NOT CONNECTED"
-                        : isUserTeam
-                        ? "ELIGIBLE TEAM"
-                        : isUserWL
-                        ? "ELIGIBLE WL"
-                        : isUserFCFS
-                        ? "ELIGIBLE FCFS"
-                        : "NOT ELIGIBLE"}
-                    </div>
-                    {address && (
-                      <div className="text-center">
-                        <span className="text-base sm:text-xl text-gray-300 uppercase">
-                          mints:
-                        </span>
-                        <span className="ml-2 text-base sm:text-xl text-white font-medium">
-                          {userMints}/{maxMintsPerAddress}
-                        </span>
-                      </div>
-                    )}
+                    {isDisconnected
+                      ? "NOT CONNECTED"
+                      : isUserTeam
+                      ? "ELIGIBLE TEAM"
+                      : isUserWL
+                      ? "ELIGIBLE WL"
+                      : isUserFCFS
+                      ? "ELIGIBLE FCFS"
+                      : "NOT ELIGIBLE"}
                   </div>
+                  {address && (
+                    <div className="text-center">
+                      <span className="text-base sm:text-xl text-gray-300 uppercase">
+                        mints:
+                      </span>
+                      <span className="ml-2 text-base sm:text-xl text-white font-medium">
+                        {userMints}/{maxMintsPerAddress}
+                      </span>
+                    </div>
+                  )}
+                </div> */}
 
-                  <div className="mt-3">
+                <div className="mt-6 w-full">
+                  <div
+                    className="w-full h-4 rounded-full overflow-hidden border border-white/30"
+                    style={{
+                      boxShadow: "0px 0px 7.1px 1px #5F2AFF",
+                      background: "rgba(255, 255, 255, 0.1)",
+                    }}
+                  >
                     <div
-                      className="w-full h-5 rounded overflow-hidden"
+                      className="h-full transition-all duration-500"
                       style={{
-                        boxShadow: "0px 0px 13px 5px rgba(255, 255, 255, 0.05)",
-                        background: "rgba(255, 255, 255, 0.1)",
+                        width: `${(totalMinted / (maxSupply || 1000)) * 100}%`,
+                        background:
+                          "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                      }}
+                    ></div>
+                  </div>
+                  <div
+                    className="flex justify-between items-center mt-4"
+                    style={{
+                      fontWeight: "600",
+                    }}
+                  >
+                    <span className="text-base sm:text-xl text-gray-200 uppercase">
+                      Total minted
+                    </span>
+                    <span className="text-base sm:text-xl font-medium text-white">
+                      {totalMinted || 0} / {maxSupply || 377}
+                    </span>
+                  </div>
+                  <div className="h-0.5 w-full bg-white/50 my-4" />
+                  <div className="flex items-center justify-between">
+                    <p
+                      className="text-white font-medium text-base sm:text-xl sm:text-[20px] mb-4 uppercase"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        fontWeight: "700",
                       }}
                     >
-                      <div
-                        className="h-full bg-[#2921a3] transition-all duration-500"
-                        style={{
-                          width: `${
-                            (totalMinted / (maxSupply || 1000)) * 100
-                          }%`,
-                        }}
-                      ></div>
-                    </div>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-base sm:text-lg text-gray-200 uppercase">
-                        Total minted
+                      Current phase:{" "}
+                      <span className="">
+                        {mintPhaseInfo?.currentPhase ===
+                        "First Come First Served"
+                          ? "FCFS"
+                          : mintPhaseInfo?.currentPhase === "Team Only"
+                          ? "TEAM"
+                          : mintPhaseInfo?.currentPhase === "Whitelist"
+                          ? "WHITELIST"
+                          : "ENDED"}
                       </span>
-                      <span className="text-base sm:text-lg font-medium text-white">
-                        {totalMinted || 0} / {maxSupply || 377}
-                      </span>
-                    </div>
-                    <div className="h-0.5 w-full bg-[#7051eb38] my-4" />
-                    <div className="flex items-center justify-between">
-                      <p className="text-white font-medium text-base sm:text-lg mx-auto sm:text-[20px] mb-4 uppercase">
-                        Current phase:{" "}
-                        <span className="text-yellow-500">
-                          {mintPhaseInfo?.currentPhase ===
-                          "First Come First Served"
-                            ? "FCFS"
-                            : mintPhaseInfo?.currentPhase === "Team Only"
-                            ? "TEAM"
-                            : mintPhaseInfo?.currentPhase === "Whitelist"
-                            ? "WHITELIST"
-                            : "ENDED"}
-                        </span>
-                      </p>
-                      {/* <p className="text-white font-bold text-lg sm:text-[22px] uppercase">
-                    {!isSoldOut && (
-                      <CountdownTimer
-                        currentPhase={mintPhaseInfo?.currentPhase}
-                      />
-                    )}
-                  </p> */}
-                    </div>
+                    </p>
+                    {/* <p className="text-white font-bold text-lg sm:text-[22px] uppercase">
+                        {!isSoldOut && (
+                          <CountdownTimer
+                            currentPhase={mintPhaseInfo?.currentPhase}
+                          />
+                        )}
+                      </p> */}
                   </div>
                 </div>
               </div>
+              <UserNFTs />{" "}
             </div>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1100px] sm:mt-10 mt-5 mx-auto mb-[100px]">
-          <UserNFTs />
-        </div>
-        <div className="h-[2px] w-[90%] max-w-[1100px] mx-auto bg-[rgba(255,255,255,0.1)]" />
-        <p className="text-lg mt-[70px] mb-10 uppercase text-center mx-auto max-w-[90%]">
-          Thanks to{" "}
-          <span className="text-green-600">
-            <Link
-              href="https://x.com/Novee_VeenoX"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Novee
-            </Link>
-          </span>{" "}
-          for all technical part
-        </p>
-        <Link
-          href="https://x.com/papayouleouf"
+      </main>
+      <footer className="fixed bottom-[50px] right-[60px] flex gap-4 z-50">
+        <a
+          href="https://monshape.club"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
-            src="/beholdak/papayou-link.png"
-            alt="Papayou link"
-            className="w-[100px] mx-auto mb-[70px]"
+            src="/icon/Footer_monshapeLogo.svg"
+            alt="Monshape"
+            className="h-[25px] w-[25px] hover:scale-110 transition-all duration-300"
           />
-        </Link>
-      </main>
+        </a>
+        <a
+          href="https://discord.gg/monshape"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="/icon/Footer_DiscordLogo.svg"
+            alt="Discord"
+            className="h-[25px] w-[25px] hover:opacity-80 transition-opacity"
+          />
+        </a>
+        <a
+          href="https://x.com/Monshape"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="/icon/Footer_XLogo.svg"
+            alt="Twitter"
+            className="h-[25px] w-[25px] hover:opacity-80 transition-opacity"
+          />
+        </a>
+        <a
+          href="https://docs.monshape.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="/icon/Footer_Gitbookicon.svg"
+            alt="Gitbook"
+            className="h-[25px] w-[25px] hover:opacity-80 transition-opacity"
+          />
+        </a>
+      </footer>
+      <AudioPlayer />
     </>
   );
 }

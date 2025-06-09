@@ -1,12 +1,12 @@
 import { Header } from "@/layouts/header";
 import ContextProvider from "@/lib/wagmi/provider";
 import type { Metadata } from "next";
-import { Bebas_Neue } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const poppins = Bebas_Neue({
-  variable: "--font-beba",
+const poppins = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
   weight: "400",
 });

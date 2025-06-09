@@ -44,12 +44,17 @@ export function UserNFTs() {
   }
 
   return (
-    <div className="mt-5 sm:mt-10">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl sm:text-4xl text-white uppercase">
-          MY NFTS ({userNFTs.length || 0})
+    <div className="mt-5 sm:mt-8">
+      <div className="flex justify-between items-center mb-2">
+        <h2
+          className="text-2xl sm:text-2xl text-white font-bold"
+          style={{
+            fontWeight: "900",
+          }}
+        >
+          MY NFTS ( {userNFTs.length || 0} )
         </h2>
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <button
             onClick={handleRefresh}
             className={`${
@@ -87,39 +92,49 @@ export function UserNFTs() {
             )}
             Refresh
           </button>
-        </div>
+        </div> */}
       </div>
 
       {userNFTs && userNFTs.length > 0 ? (
-        <div className="grid grid-cols-2 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="flex overflow-x-auto gap-3 scrollbar-hide">
           {userNFTs.map((nft) => {
             const tokenId = nft.tokenId.toString();
             const nftName = nft.metadata?.name || `NFT #${tokenId}`;
             return (
               <div
                 key={`nft-${tokenId}`}
-                className="relative transition-all duration-500 rounded-lg transform hover:scale-105"
+                className="relative transition-all duration-500 min-w-[145px] pb-3 rounded-[9px] scrollbar-hide"
               >
-                <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur-md rounded-lg overflow-hidden">
+                <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1">
                   <div className="relative w-full h-auto">
-                    <img
-                      src={nft.normalizedImage}
-                      alt={nftName}
-                      width={400}
-                      height={262}
-                      className="w-full h-[180px] sm:h-[230px] object-cover"
-                    />
-
-                    {!nft.metadata && (
-                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <div className="text-yellow-300 animate-pulse">
-                          LOADING...
-                        </div>
-                      </div>
+                    {nft.normalizedImage &&
+                    (nft.normalizedImage.endsWith(".mp4") ||
+                      nft.normalizedImage.endsWith(".wav") ||
+                      nft.normalizedImage.endsWith(".webm")) ? (
+                      <video
+                        src={nft.normalizedImage}
+                        controls
+                        className="w-full h-[134px] sm:h-[134px] object-cover rounded-lg"
+                        loop
+                        muted
+                      />
+                    ) : (
+                      <img
+                        src={nft.normalizedImage || ""}
+                        alt={nftName}
+                        width={400}
+                        height={262}
+                        className=" h-[134px] sm:h-[134px] w-full object-cover rounded-lg"
+                      />
                     )}
                   </div>
-                  <div className="px-2 sm:px-4 py-2">
-                    <h3 className="text-white text-base sm:text-xl uppercase font-bold">
+                  <div className="px-2 sm:px-2 py-1 pb-0.5">
+                    <h3
+                      className="text-white text-sm sm:text-[15px] font-bold"
+                      style={{
+                        fontWeight: "900",
+                      }}
+                    >
                       {nftName}
                     </h3>
                   </div>
@@ -132,14 +147,10 @@ export function UserNFTs() {
         <div className="h-48 flex items-center justify-center">
           {isLoadingNFTs ? (
             <div className="flex flex-col items-center">
-              <p className="text-[rgba(255,255,255,0.7)] text-xl">
-                LOADING YOUR NFTs...
-              </p>
+              <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"></div>
             </div>
           ) : (
-            <p className="text-white uppercase text-xl">
-              No NFTs found. You can try refreshing the collection.
-            </p>
+            <p className="text-white uppercase text-xl">No NFTs found.</p>
           )}
         </div>
       )}
