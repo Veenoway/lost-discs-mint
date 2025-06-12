@@ -1852,6 +1852,10 @@ body {
     font-size: 1rem;
     line-height: 1.5rem;
   }
+
+  .sm\:text-\[14px\] {
+    font-size: 14px;
+  }
 }
 
 @media (width >= 768px) {

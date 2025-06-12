@@ -14,18 +14,12 @@ export const monadTestnet = {
   rpcUrls: {
     default: {
       http: [
-        "https://testnet-rpc2.monad.xyz/52227f026fa8fac9e2014c58fbf5643369b3bfc6",
-        "https://testnet-rpc.monad.xyz/",
-        "https://cold-alien-pine.monad-testnet.quiknode.pro/bd2bdf09752a1d1519c98a1b8baa6467eaa50cb8/",
-        "https://monad-testnet.drpc.org/",
+        "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9",
       ],
     },
     public: {
       http: [
-        "https://testnet-rpc2.monad.xyz/52227f026fa8fac9e2014c58fbf5643369b3bfc6",
-        "https://testnet-rpc.monad.xyz/",
-        "https://cold-alien-pine.monad-testnet.quiknode.pro/bd2bdf09752a1d1519c98a1b8baa6467eaa50cb8/",
-        "https://monad-testnet.drpc.org/",
+        "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9",
       ],
     },
   },

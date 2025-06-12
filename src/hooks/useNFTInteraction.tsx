@@ -121,215 +121,6 @@ export function useNFT() {
   const { isLoading: isMintLoading, isSuccess: isMintSuccess } =
     useWaitForTransactionReceipt({ hash });
 
-  const createDefaultMetadata = (nft: UserNFTDetailed): NFTMetadata => {
-    return {
-      tokenId: nft.tokenId,
-      metadataId: nft.metadataId,
-      name: `LIL MONK #${nft.tokenId.toString()}`,
-      description: "Metadata unavailable",
-      image: "/preview.gif",
-      attributes: [],
-    };
-  };
-
-  const IPFS_GATEWAY = "https://gateway.pinata.cloud/ipfs/";
-
-  const fetchMetadataForNFTs = async (
-    nfts: UserNFTDetailed[]
-  ): Promise<NFTMetadata[]> => {
-    if (!nfts || nfts.length === 0) {
-      return [];
-    }
-
-    const fetchWithRetry = async (url: string, retries = 2) => {
-      let lastError;
-
-      for (let i = 0; i <= retries; i++) {
-        try {
-          const response = await fetch(url, { cache: "no-store" });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-          }
-
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            return await response.json();
-          }
-
-          const text = await response.text();
-          try {
-            return JSON.parse(text);
-          } catch {
-            throw new Error("Response is not valid JSON");
-          }
-        } catch (error) {
-          lastError = error;
-
-          if (i < retries) {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-          }
-        }
-      }
-
-      throw lastError || new Error("Failed to fetch after retries");
-    };
-
-    const metadataPromises = nfts.map(async (nft) => {
-      try {
-        if (!nft.tokenURI) {
-          return createDefaultMetadata(nft);
-        }
-
-        let metadataUrl = nft.tokenURI;
-
-        if (metadataUrl.startsWith("ipfs://")) {
-          metadataUrl = metadataUrl.replace("ipfs://", IPFS_GATEWAY);
-        }
-
-        const data = await fetchWithRetry(metadataUrl);
-
-        if (!data || typeof data !== "object") {
-          throw new Error("Invalid metadata format");
-        }
-
-        const imageUrl = data.image || "/preview.gif";
-
-        let normalizedImageUrl = imageUrl;
-        if (imageUrl.startsWith("ipfs://")) {
-          normalizedImageUrl = imageUrl.replace("ipfs://", IPFS_GATEWAY);
-        }
-
-        const metadata: NFTMetadata = {
-          tokenId: nft.tokenId,
-          metadataId: nft.metadataId,
-          name: data.name || `NFT #${nft.tokenId.toString()}`,
-          description: data.description || "",
-          image: normalizedImageUrl,
-          attributes: data.attributes || [],
-        };
-
-        setUserNFTs((currentNFTs) =>
-          currentNFTs.map((currentNft) => {
-            if (currentNft.tokenId === nft.tokenId) {
-              return {
-                ...currentNft,
-                metadata: metadata,
-                normalizedImage: normalizedImageUrl,
-              };
-            }
-            return currentNft;
-          })
-        );
-
-        return metadata;
-      } catch (error) {
-        console.error(
-          `Error fetching metadata for NFT #${nft.tokenId.toString()}:`,
-          error
-        );
-        return createDefaultMetadata(nft);
-      }
-    });
-
-    const results = await Promise.allSettled(metadataPromises);
-    const metadata = results
-      .filter(
-        (result): result is PromiseFulfilledResult<NFTMetadata> =>
-          result.status === "fulfilled"
-      )
-      .map((result) => result.value);
-
-    return metadata;
-  };
-
-  const refreshUserNFTs = async () => {
-    if (!address || !publicClient) {
-      return null;
-    }
-
-    if (isLoadingNFTs) {
-      return null;
-    }
-
-    setIsLoadingNFTs(true);
-
-    try {
-      (await readContract(publicClient, {
-        address: NFT_ADDRESS,
-        abi: NFT_ABI,
-        functionName: "totalMinted",
-      })) as bigint;
-
-      const result = await readContract(publicClient, {
-        address: NFT_ADDRESS,
-        abi: NFT_ABI,
-        functionName: "getUserNFTsDetailed",
-        args: [address],
-      });
-
-      if (!result || !Array.isArray(result) || result.length < 4) {
-        setUserNFTs([]);
-        setNftMetadata([]);
-        setIsLoadingNFTs(false);
-        return [];
-      }
-
-      const [userTokensArray, metadataArray, tokenURIsArray] = result;
-
-      const userTokens = userTokensArray as readonly bigint[];
-      const metadataIds = metadataArray as readonly bigint[];
-      const tokenURIs = tokenURIsArray as readonly string[];
-
-      if (!userTokens.length) {
-        setUserNFTs([]);
-        setNftMetadata([]);
-        setIsLoadingNFTs(false);
-        return [];
-      }
-
-      const nftDetails: UserNFTDetailed[] = Array.from(
-        { length: userTokens.length },
-        (_, i) => {
-          const tokenId = userTokens[i];
-          const existingNFT = userNFTs.find((nft) => nft.tokenId === tokenId);
-
-          return {
-            tokenId,
-            metadataId: metadataIds[i],
-            tokenURI: tokenURIs[i] || "",
-            metadata: existingNFT?.metadata,
-            normalizedImage: existingNFT?.normalizedImage || "/preview.gif",
-          };
-        }
-      );
-
-      setUserNFTs(nftDetails);
-
-      const nftsNeedingMetadata = nftDetails.filter((nft) => !nft.metadata);
-
-      if (nftsNeedingMetadata.length > 0) {
-        console.log(`Fetching metadata for ${nftsNeedingMetadata.length} NFTs`);
-
-        fetchMetadataForNFTs(nftsNeedingMetadata).then((newMetadata) => {
-          setNftMetadata((currentMetadata) => [
-            ...currentMetadata.filter(
-              (m) => !newMetadata.some((nm) => nm.tokenId === m.tokenId)
-            ),
-            ...newMetadata,
-          ]);
-        });
-      }
-
-      setIsLoadingNFTs(false);
-      return nftDetails;
-    } catch (error) {
-      console.error("Error while refreshing NFTs:", error);
-      setIsLoadingNFTs(false);
-      return null;
-    }
-  };
-
   const formatMON = (weiAmount: bigint | undefined): string => {
     if (!weiAmount) return "0";
     return formatUnits(weiAmount, 18);
@@ -466,13 +257,10 @@ export function useNFT() {
   useEffect(() => {
     if (address && publicClient) {
       if (isFirstMount.current) {
-        refreshUserNFTs();
         isFirstMount.current = false;
       }
 
       refreshIntervalRef.current = setInterval(() => {
-        console.log("Rafraîchissement automatique des données");
-        refreshUserNFTs();
         invalidateQueries();
       }, 10000);
 
@@ -484,70 +272,6 @@ export function useNFT() {
       };
     }
   }, [address, publicClient]);
-
-  useEffect(() => {
-    if (isMintSuccess) {
-      if (refreshIntervalRef.current) {
-        clearInterval(refreshIntervalRef.current);
-        refreshIntervalRef.current = null;
-      }
-
-      invalidateQueries();
-
-      const refreshSequence = [
-        {
-          delay: 1000,
-          message: "Premier rafraîchissement immédiat après le mint",
-        },
-        {
-          delay: 3000,
-          message: "Deuxième rafraîchissement pour vérifier les métadonnées",
-        },
-        {
-          delay: 8000,
-          message: "Troisième rafraîchissement pour confirmer tous les NFTs",
-        },
-        {
-          delay: 15000,
-          message: "Rafraîchissement final pour validation complète",
-        },
-      ];
-
-      let totalDelay = 0;
-
-      refreshSequence.forEach((step, index) => {
-        totalDelay += step.delay;
-
-        setTimeout(async () => {
-          try {
-            console.log(
-              `${step.message} - Séquence ${index + 1}/${
-                refreshSequence.length
-              }`
-            );
-            await refreshUserNFTs();
-
-            if (
-              index === refreshSequence.length - 1 &&
-              address &&
-              publicClient
-            ) {
-              refreshIntervalRef.current = setInterval(() => {
-                console.log("Rafraîchissement automatique des données");
-                refreshUserNFTs();
-                invalidateQueries();
-              }, 10000);
-            }
-          } catch (error) {
-            console.error(
-              `Erreur pendant le rafraîchissement #${index + 1}:`,
-              error
-            );
-          }
-        }, totalDelay);
-      });
-    }
-  }, [isMintSuccess, address, publicClient]);
 
   const formatUserMintStatus = () => {
     if (
@@ -596,7 +320,6 @@ export function useNFT() {
     isLoading: isMintLoading,
     isSuccess: isMintSuccess,
     error,
-    refreshUserNFTs,
     lastMintedTokenId,
     isLoadingNFTs,
 

@@ -83,9 +83,6 @@ const AudioPlayer = () => {
           await audioRef.current.play();
           setIsPlaying(true);
         } catch (error: unknown) {
-          console.log(
-            "Lecture automatique impossible - interaction utilisateur requise"
-          );
           setIsPlaying(false);
         }
       }
@@ -232,7 +229,6 @@ export function NFT() {
     isSuccess: isMintSuccess,
     userMintStatus,
     mintPhaseInfo,
-    refreshUserNFTs,
     lastMintedTokenId,
     isUserWL,
     isUserFCFS,
@@ -325,8 +321,6 @@ export function NFT() {
     setAttempts((prev) => prev + 1);
 
     try {
-      await refreshUserNFTs();
-
       if (lastMintedTokenId) {
         setLastMintedNFT({
           id: String(lastMintedTokenId),

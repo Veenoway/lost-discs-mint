@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
     }
 
     const account = privateKeyToAccount(signerPrivateKey as `0x${string}`);
-    console.log("Signer address:", account.address);
 
     const currentTotalMinted = totalMinted || 0;
 
@@ -46,16 +45,6 @@ export async function POST(req: NextRequest) {
     const recoveredAddress = await recoverMessageAddress({
       message: { raw: messageHash } as SignableMessage,
       signature,
-    });
-
-    console.log({
-      userAddress: address,
-      chainId: 10143,
-      contractAddress: NFT_ADDRESS,
-      totalMinted: currentTotalMinted,
-      messageHash,
-      signature,
-      signer: account.address,
     });
 
     if (recoveredAddress.toLowerCase() !== account.address.toLowerCase()) {

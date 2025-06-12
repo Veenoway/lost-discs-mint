@@ -314,7 +314,6 @@ function WalletConnection() {
         if (isConnecting || isInitialLoading) return "Loading...";
         return `${address?.slice(0, 6)}...${address?.slice(-4)}`;
     };
-    console.log("chainID;", chainId);
     const isWrongNetwork = chainId !== 10143;
     const handleSwitchNetwork = async ()=>{
         try {
@@ -342,7 +341,7 @@ function WalletConnection() {
             children: "Switch to Monad Testnet"
         }, void 0, false, {
             fileName: "[project]/src/components/connect-wallet.tsx",
-            lineNumber: 48,
+            lineNumber: 47,
             columnNumber: 7
         }, this);
     }
@@ -364,12 +363,12 @@ function WalletConnection() {
                     children: "Connect Wallet"
                 }, void 0, false, {
                     fileName: "[project]/src/components/connect-wallet.tsx",
-                    lineNumber: 67,
+                    lineNumber: 66,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/connect-wallet.tsx",
-                lineNumber: 66,
+                lineNumber: 65,
                 columnNumber: 9
             }, this),
             address && !isWrongNetwork && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -386,18 +385,18 @@ function WalletConnection() {
                     children: getDisplayText()
                 }, void 0, false, {
                     fileName: "[project]/src/components/connect-wallet.tsx",
-                    lineNumber: 83,
+                    lineNumber: 82,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/connect-wallet.tsx",
-                lineNumber: 82,
+                lineNumber: 81,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/connect-wallet.tsx",
-        lineNumber: 64,
+        lineNumber: 63,
         columnNumber: 5
     }, this);
 }
@@ -445,18 +444,12 @@ const monadTestnet = {
     rpcUrls: {
         default: {
             http: [
-                "https://testnet-rpc2.monad.xyz/52227f026fa8fac9e2014c58fbf5643369b3bfc6",
-                "https://testnet-rpc.monad.xyz/",
-                "https://cold-alien-pine.monad-testnet.quiknode.pro/bd2bdf09752a1d1519c98a1b8baa6467eaa50cb8/",
-                "https://monad-testnet.drpc.org/"
+                "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9"
             ]
         },
         public: {
             http: [
-                "https://testnet-rpc2.monad.xyz/52227f026fa8fac9e2014c58fbf5643369b3bfc6",
-                "https://testnet-rpc.monad.xyz/",
-                "https://cold-alien-pine.monad-testnet.quiknode.pro/bd2bdf09752a1d1519c98a1b8baa6467eaa50cb8/",
-                "https://monad-testnet.drpc.org/"
+                "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9"
             ]
         }
     },

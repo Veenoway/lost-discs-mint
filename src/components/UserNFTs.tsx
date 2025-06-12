@@ -1,21 +1,124 @@
 "use client";
+import { NFT_ABI, NFT_ADDRESS } from "@/contract";
 import { useNFT } from "@/hooks/useNFTInteraction";
-import { useEffect, useRef } from "react";
-import { useAccount } from "wagmi";
+import { useEffect, useState } from "react";
+import { readContract } from "viem/actions";
+import { useAccount, usePublicClient } from "wagmi";
 
 export function UserNFTs() {
-  const { refreshUserNFTs, userNFTs, isLoadingNFTs } = useNFT();
+  const { userNFTs, isLoadingNFTs } = useNFT();
   const { address } = useAccount();
-  const hasInitialized = useRef(false);
+  const [nftMetadata, setNftMetadata] = useState<Record<string, any>>({});
+  const publicClient = usePublicClient();
+  const [nfts, setNfts] = useState<any[]>([]);
 
   useEffect(() => {
-    if (address && !hasInitialized.current) {
-      console.log("Initial NFT loading");
-      refreshUserNFTs().then(() => {
-        hasInitialized.current = true;
+    const loadMetadata = async () => {
+      const metadataPromises = userNFTs.map(async (nft) => {
+        const tokenId = nft.tokenId.toString();
+        const metadata = await fetchNftMetadata(nft.tokenURI);
+        return { tokenId, metadata };
       });
+
+      const results = await Promise.all(metadataPromises);
+      const metadataMap = results.reduce((acc, { tokenId, metadata }) => {
+        acc[tokenId] = metadata;
+        return acc;
+      }, {} as Record<string, any>);
+
+      setNftMetadata(metadataMap);
+    };
+
+    if (userNFTs.length > 0) {
+      loadMetadata();
     }
-  }, [address, refreshUserNFTs]);
+  }, [userNFTs]);
+
+  const IPFS_GATEWAY = "https://ipfs.io/ipfs/";
+
+  const fetchNftMetadata = async (tokenUri: string) => {
+    const url = tokenUri.startsWith("ipfs://")
+      ? tokenUri.replace("ipfs://", IPFS_GATEWAY)
+      : tokenUri;
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch tokenURI: ${response.statusText}`);
+      }
+
+      const metadata = await response.json();
+      if (metadata.image?.startsWith("ipfs://")) {
+        metadata.image = metadata.image.replace(
+          "ipfs://",
+          "https://gateway.pinata.cloud/ipfs/"
+        );
+      }
+
+      if (metadata.animation_url?.startsWith("ipfs://")) {
+        metadata.animation_url = metadata.animation_url.replace(
+          "ipfs://",
+          "https://gateway.pinata.cloud/ipfs/"
+        );
+      }
+
+      return metadata;
+    } catch (err) {
+      console.error("Erreur lors du fetch du metadata:", err);
+      return null;
+    }
+  };
+
+  const fetchUserNFTs = async () => {
+    try {
+      if (!publicClient) return [];
+
+      const userNFTs = await readContract(publicClient, {
+        address: NFT_ADDRESS,
+        abi: NFT_ABI,
+        functionName: "getUserNFTsDetailed",
+        args: [address],
+      });
+
+      if (!userNFTs || !Array.isArray(userNFTs)) {
+        console.error("Invalid response format for user NFTs");
+        return [];
+      }
+
+      const formattedNFTs = [];
+
+      for (let i = 0; i < userNFTs[0].length; i++) {
+        const nft = {
+          tokenId: userNFTs[0][i],
+          metadataId: userNFTs[1][i],
+          tokenURI: userNFTs[2][i],
+        };
+
+        let metadata = await fetchNftMetadata(nft.tokenURI);
+        while (!metadata) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          metadata = await fetchNftMetadata(nft.tokenURI);
+        }
+        formattedNFTs.push({ ...nft, metadata });
+      }
+
+      setNfts(formattedNFTs);
+    } catch (error) {
+      console.error("Error fetching user NFTs:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    if (address && publicClient) {
+      fetchUserNFTs();
+      const interval = setInterval(() => {
+        fetchUserNFTs();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [address, publicClient]);
 
   if (!address) {
     return (
@@ -36,7 +139,7 @@ export function UserNFTs() {
     <div className="mt-0 sm:mt-8">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg sm:text-2xl text-white font-bold">
-          MY NFTS ( {userNFTs.length || 0} )
+          MY NFTS ( {nfts.length || 0} )
         </h2>
         {/* <div className="flex items-center gap-3">
           <button
@@ -79,11 +182,12 @@ export function UserNFTs() {
         </div> */}
       </div>
 
-      {userNFTs && userNFTs.length > 0 ? (
+      {nfts && nfts.length > 0 ? (
         <div className="flex overflow-x-auto gap-3 scrollbar-hide">
-          {userNFTs.map((nft) => {
+          {nfts.map((nft) => {
             const tokenId = nft.tokenId.toString();
-            const nftName = nft.metadata?.name || `NFT #${tokenId}`;
+            const metadata = nft.metadata;
+            const nftName = metadata?.name || `NFT #${tokenId}`;
             return (
               <div
                 key={`nft-${tokenId}`}
@@ -91,35 +195,33 @@ export function UserNFTs() {
               >
                 <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1">
                   <div className="relative w-full h-auto">
-                    {nft.normalizedImage &&
-                    (nft.normalizedImage.endsWith(".mp4") ||
-                      nft.normalizedImage.endsWith(".wav") ||
-                      nft.normalizedImage.endsWith(".webm")) ? (
+                    {metadata?.animation_url ? (
                       <video
-                        src={nft.normalizedImage}
-                        controls
+                        src={metadata?.image}
                         className="w-full h-[134px] sm:h-[134px] object-cover rounded-lg"
                         loop
                         muted
+                        autoPlay
+                        controls={false}
                       />
                     ) : (
                       <img
-                        src={nft.normalizedImage || ""}
+                        src={metadata?.image || ""}
                         alt={nftName}
                         width={400}
                         height={262}
-                        className=" h-[134px] sm:h-[134px] w-full object-cover rounded-lg"
+                        className="h-[134px] sm:h-[134px] w-full object-cover rounded-lg"
                       />
                     )}
                   </div>
                   <div className="px-2 sm:px-2 py-1 pb-0.5">
                     <h3
-                      className="text-white text-sm sm:text-[15px] font-bold"
+                      className="text-white text-sm sm:text-[14px] font-bold"
                       style={{
                         fontWeight: "900",
                       }}
                     >
-                      {nftName}
+                      {metadata?.name?.split("#")?.[0] || nftName}
                     </h3>
                   </div>
                 </div>
