@@ -10,7 +10,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 const BackgroundWrapper = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden">
-      <div className="h-[115px] flex items-center justify-center z-[1000] absolute top-[80px] left-[80px]">
+      <div className="h-[50px] md:h-[115px] flex items-center justify-center z-[1000] absolute top-[20px] md:top-[80px] left-[20px] md:left-[80px]">
         <img
           src="/icon/Logo_SVG.svg"
           alt="Logo"
@@ -27,12 +27,11 @@ const BackgroundWrapper = () => {
         <source src="/background/lost_disc.mp4" type="video/mp4" />
       </video>
       <motion.div
-        className="absolute bottom-0 left-0 w-1/3 h-1/3"
-        initial={{ y: "20%", scale: 1, opacity: 1 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
+        className="absolute bottom-0 left-0 "
+        initial={{ y: "10%", scale: 1.4, x: "-10%", opacity: 1 }}
+        animate={{ y: 0, scale: 1, opacity: 1, x: "-10%" }}
         transition={{
-          duration: 1,
-          ease: "easeInOut",
+          duration: 1.4,
         }}
       >
         <img
@@ -42,12 +41,11 @@ const BackgroundWrapper = () => {
         />
       </motion.div>
       <motion.div
-        className="absolute bottom-0 right-0 w-0.7/3 h-1/3"
-        initial={{ y: "20%", scale: 1, opacity: 1 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
+        className="absolute bottom-0 right-0"
+        initial={{ y: "10%", scale: 1.4, x: "10%", opacity: 1 }}
+        animate={{ y: 0, scale: 1.1, opacity: 1, x: "10%" }}
         transition={{
-          duration: 1,
-          ease: "easeInOut",
+          duration: 1.4,
         }}
       >
         <img
@@ -140,17 +138,17 @@ const AudioPlayer = () => {
   }, [currentTrack]);
 
   return (
-    <div className="fixed min-w-[342px] w-fit bottom-[60px] bg-white/10 border rounded-xl border-white/30 h-[57px] left-[60px] z-50 backdrop-blur-sm">
-      <div className="relative pl-[95px] flex items-center justify-between gap-2 p-2 ">
+    <div className="fixed min-w-[200px] sm:min-w-[342px] w-fit sm:bottom-[60px] bottom-[20px] bg-white/10 border rounded-xl border-white/30 h-[50px] sm:h-[57px] left-[20px] sm:left-[90px] lg:left-[100px] z-50 backdrop-blur-sm">
+      <div className="relative sm:pl-[95px] pl-[60px] flex items-center justify-between gap-2 p-2 ">
         <img
           src="/background/music_player.gif"
           alt="Music"
-          className="w-[126px] h-[173px] absolute bottom-1/2 translate-y-1/2 translate-x-1/2 -left-[115px] z-50"
+          className="w-[60px] sm:w-[126px] h-[80px] sm:h-[173px] absolute bottom-1/2  translate-y-1/2 sm:translate-y-1/2 translate-x-1/4 sm:-left-[115px] -left-[30px] z-50"
         />
         <audio ref={audioRef} src={tracks[currentTrack]} />
-        <div className="flex flex-col justify-center -mt-[3px]">
+        <div className="flex flex-col justify-center -mt-[5px] sm:-mt-[3px]">
           <p
-            className="text-white text-base uppercase "
+            className="text-white text-[12px] sm:text-base uppercase "
             style={{
               fontWeight: "800",
             }}
@@ -160,10 +158,10 @@ const AudioPlayer = () => {
           </p>
           <p className="text-white/50 text-[9px]">Monshape.club</p>
         </div>
-        <div className="flex items-center ml-10">
+        <div className="flex items-center ml-auto sm:ml-10">
           <button
             onClick={playPrevious}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all"
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 sm:mt-0 -mt-1 transition-all"
           >
             <img
               src="/icon/Playlist_Previous.svg"
@@ -173,7 +171,7 @@ const AudioPlayer = () => {
           </button>{" "}
           <button
             onClick={togglePlay}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all"
+            className=" flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all sm:mt-0 -mt-1"
           >
             {isPlaying ? (
               <img
@@ -191,7 +189,7 @@ const AudioPlayer = () => {
           </button>
           <button
             onClick={playNext}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all"
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all sm:mt-0 -mt-1"
           >
             <img src="/icon/Playlist_Next.svg" alt="Next" className="w-4 h-4" />
           </button>{" "}
@@ -389,9 +387,9 @@ export function NFT() {
     <>
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />
-        <div className="relative z-10  -mt-[150px]">
+        <div className="relative z-10 mt-[200px] md:-mt-[150px]">
           <div className="max-w-[1450px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between">
-            <div className="max-w-[436px] -ml-[60px] flex flex-col lg:items-start items-center text-white font-medium text-xl">
+            <div className="max-w-[436px] -ml-[60px] flex-col lg:items-start items-center text-white font-medium text-xl hidden lg:flex">
               <div className="w-full p-5 sm:p-9 rounded-xl bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] relative">
                 <h1
                   className="uppercase text-white text-3xl mb-1"
@@ -417,7 +415,7 @@ export function NFT() {
               </div>
             </div>
             {/* MINT BUTTON */}
-            <div className="max-w-[466px] w-full">
+            <div className="max-w-[466px] w-full lg:mx-0 mx-auto">
               <div className="w-full flex flex-col items-center justify-center">
                 {address && isWrongNetwork ? (
                   <Button
@@ -435,6 +433,9 @@ export function NFT() {
                     <Button
                       style={{
                         fontWeight: "800",
+                        background:
+                          "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                        boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                       }}
                       onClick={() => setOpen(true)}
                     >
@@ -500,6 +501,14 @@ export function NFT() {
                           )}
                         </Button>
                       </div>
+                    ) : !userCanMint ? (
+                      <Button
+                        style={{
+                          fontWeight: "800",
+                        }}
+                      >
+                        NOT ELIGIBLE
+                      </Button>
                     ) : (
                       <Button
                         style={{
@@ -616,7 +625,7 @@ export function NFT() {
           </div>
         </div>
       </main>
-      <footer className="fixed bottom-[50px] right-[60px] flex gap-4 z-50">
+      <footer className="fixed bottom-[50px] right-[60px] gap-4 z-50 hidden sm:flex">
         <a
           href="https://monshape.club"
           target="_blank"

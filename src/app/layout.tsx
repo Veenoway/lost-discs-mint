@@ -12,8 +12,8 @@ const poppins = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Tentacle Of Beholdak | Mint",
-  description: "Mint your Tentacle Of Beholdak NFTs on Monad testnet.",
+  title: "Lost Discs | Mint",
+  description: "Mint your Lost Discs NFTs from Monshape on Monad testnet.",
 };
 
 export default async function RootLayout({

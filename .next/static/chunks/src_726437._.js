@@ -196,11 +196,11 @@ const WalletModal = ({ children, open, setOpen })=>{
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$shadcn$2f$modal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogContent"], {
                 close: ()=>setOpen(false),
-                className: "sm:max-w-[600px] text-white px-10 py-8 rounded-xl bg-brandColor",
+                className: "sm:max-w-[600px] px-10 py-8 rounded-xl bg-[#858585] backdrop-blur-sm w-full mx-auto bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] text-2xl uppercase text-white transition-all duration-300 ease-in-out",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$shadcn$2f$modal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogHeader"], {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$shadcn$2f$modal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogTitle"], {
-                            className: "text-3xl mb-3 text-white uppercase",
+                            className: "text-2xl md:text-4xl mb-3 text-white uppercase",
                             children: "Connect Wallet"
                         }, void 0, false, {
                             fileName: "[project]/src/components/connect-modal.tsx",
@@ -216,7 +216,8 @@ const WalletModal = ({ children, open, setOpen })=>{
                         className: "flex flex-wrap gap-5 w-full",
                         children: connectors?.map((connector, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 style: {
-                                    width: "calc(50% - 10px)"
+                                    width: "calc(50% - 10px)",
+                                    fontWeight: "800"
                                 },
                                 onClick: ()=>{
                                     connect({
@@ -224,7 +225,7 @@ const WalletModal = ({ children, open, setOpen })=>{
                                     });
                                     setOpen(false);
                                 },
-                                className: " bg-[#292e81] hover:bg-[#3439a7]/70 transition-all duration-300 ease-in-out flex items-center justify-center rounded h-[66px] px-2 font-thin text-xl",
+                                className: "bg-gradient-to-r from-[rgba(73,255,255,0.5)] to-[rgba(153,0,255,0.5)] hover:from-[rgba(73,255,255,0.8)] hover:to-[rgba(153,0,255,0.8)] transition-all duration-300 ease-in-out flex items-center justify-center rounded h-[66px] px-2 font-thin text-xl",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                         src: connector.icon,
@@ -232,7 +233,7 @@ const WalletModal = ({ children, open, setOpen })=>{
                                         className: "w-6 h-6 mr-3"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/connect-modal.tsx",
-                                        lineNumber: 41,
+                                        lineNumber: 42,
                                         columnNumber: 15
                                     }, this),
                                     connector.name

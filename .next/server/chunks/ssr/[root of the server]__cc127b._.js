@@ -170,8 +170,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head
 ;
 ;
 const metadata = {
-    title: "Tentacle Of Beholdak | Mint",
-    description: "Mint your Tentacle Of Beholdak NFTs on Monad testnet."
+    title: "Lost Discs | Mint",
+    description: "Mint your Lost Discs NFTs from Monshape on Monad testnet."
 };
 async function RootLayout({ children }) {
     const cookies = (await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["headers"])()).get("cookie");

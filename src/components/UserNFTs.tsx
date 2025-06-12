@@ -30,6 +30,8 @@ export function UserNFTs() {
     }
   };
 
+  console.log(userNFTs);
+
   if (!address) {
     return (
       <div className="mt-10">
@@ -47,7 +49,7 @@ export function UserNFTs() {
     <div className="mt-5 sm:mt-8">
       <div className="flex justify-between items-center mb-2">
         <h2
-          className="text-2xl sm:text-2xl text-white font-bold"
+          className="text-xl sm:text-2xl text-white font-bold"
           style={{
             fontWeight: "900",
           }}
@@ -144,13 +146,13 @@ export function UserNFTs() {
           })}
         </div>
       ) : (
-        <div className="h-48 flex items-center justify-center">
+        <div className="h-[100px] sm:h-48 flex items-center justify-center">
           {isLoadingNFTs ? (
             <div className="flex flex-col items-center">
-              <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"></div>
+              <div className="animate-spin w-8 h-8 border-4 border-[#ffffff] border-t-transparent rounded-full"></div>
             </div>
           ) : (
-            <p className="text-white uppercase text-xl">No NFTs found.</p>
+            <p className="text-white text-sm sm:text-xl">No NFTs found.</p>
           )}
         </div>
       )}

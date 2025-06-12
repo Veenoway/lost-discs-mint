@@ -132,14 +132,14 @@ export function useNFT() {
     };
   };
 
+  const IPFS_GATEWAY = "https://gateway.pinata.cloud/ipfs/";
+
   const fetchMetadataForNFTs = async (
     nfts: UserNFTDetailed[]
   ): Promise<NFTMetadata[]> => {
     if (!nfts || nfts.length === 0) {
       return [];
     }
-
-    const IPFS_GATEWAY = "https://ipfs.io/ipfs/";
 
     const fetchWithRetry = async (url: string, retries = 2) => {
       let lastError;
@@ -160,8 +160,7 @@ export function useNFT() {
           const text = await response.text();
           try {
             return JSON.parse(text);
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          } catch (_error) {
+          } catch {
             throw new Error("Response is not valid JSON");
           }
         } catch (error) {
@@ -193,7 +192,7 @@ export function useNFT() {
         if (!data || typeof data !== "object") {
           throw new Error("Invalid metadata format");
         }
-        console.log("dataaaaaaa", data);
+
         const imageUrl = data.image || "/preview.gif";
 
         let normalizedImageUrl = imageUrl;
@@ -206,7 +205,7 @@ export function useNFT() {
           metadataId: nft.metadataId,
           name: data.name || `NFT #${nft.tokenId.toString()}`,
           description: data.description || "",
-          image: imageUrl,
+          image: normalizedImageUrl,
           attributes: data.attributes || [],
         };
 
@@ -232,9 +231,8 @@ export function useNFT() {
         return createDefaultMetadata(nft);
       }
     });
-    console.log("user", userNFTs);
+
     const results = await Promise.allSettled(metadataPromises);
-    console.log("results", results);
     const metadata = results
       .filter(
         (result): result is PromiseFulfilledResult<NFTMetadata> =>
