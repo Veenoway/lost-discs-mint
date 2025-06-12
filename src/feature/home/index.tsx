@@ -82,6 +82,7 @@ const AudioPlayer = () => {
         try {
           await audioRef.current.play();
           setIsPlaying(true);
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error: unknown) {
           setIsPlaying(false);
         }

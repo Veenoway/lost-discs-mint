@@ -6,33 +6,26 @@ import { readContract } from "viem/actions";
 import { useAccount, usePublicClient } from "wagmi";
 
 export function UserNFTs() {
-  const { userNFTs, isLoadingNFTs } = useNFT();
+  const { isLoadingNFTs } = useNFT();
   const { address } = useAccount();
-  const [nftMetadata, setNftMetadata] = useState<Record<string, any>>({});
   const publicClient = usePublicClient();
-  const [nfts, setNfts] = useState<any[]>([]);
-
-  useEffect(() => {
-    const loadMetadata = async () => {
-      const metadataPromises = userNFTs.map(async (nft) => {
-        const tokenId = nft.tokenId.toString();
-        const metadata = await fetchNftMetadata(nft.tokenURI);
-        return { tokenId, metadata };
-      });
-
-      const results = await Promise.all(metadataPromises);
-      const metadataMap = results.reduce((acc, { tokenId, metadata }) => {
-        acc[tokenId] = metadata;
-        return acc;
-      }, {} as Record<string, any>);
-
-      setNftMetadata(metadataMap);
-    };
-
-    if (userNFTs.length > 0) {
-      loadMetadata();
-    }
-  }, [userNFTs]);
+  const [nfts, setNfts] = useState<
+    Array<{
+      tokenId: string;
+      metadataId: string;
+      tokenURI: string;
+      metadata: {
+        name: string;
+        description: string;
+        image: string;
+        animation_url: string;
+        attributes: Array<{
+          trait_type: string;
+          value: string;
+        }>;
+      };
+    }>
+  >([]);
 
   const IPFS_GATEWAY = "https://ipfs.io/ipfs/";
 
