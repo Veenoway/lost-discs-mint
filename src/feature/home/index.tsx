@@ -3,6 +3,7 @@ import { Button } from "@/components/button";
 import { WalletModal } from "@/components/connect-modal";
 import { UserNFTs } from "@/components/UserNFTs";
 import { useNFT } from "@/hooks/useNFTInteraction";
+import { Header } from "@/layouts/header";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useSwitchChain } from "wagmi";
@@ -10,13 +11,13 @@ import { useAccount, useSwitchChain } from "wagmi";
 const BackgroundWrapper = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden">
-      <div className="h-[60px] md:h-[115px] flex items-center justify-center z-[1000] absolute top-[20px] md:top-[80px] left-[20px] md:left-[80px]">
+      {/* <div className="h-[60px] md:h-[115px] flex items-center justify-center z-[1000] absolute top-[20px] md:top-[80px] left-[20px] md:left-[80px]">
         <img
           src="/icon/Logo_SVG.svg"
           alt="Logo"
           className="w-full h-full object-cover"
         />
-      </div>
+      </div>{" "} */}
       <video
         autoPlay
         loop
@@ -148,7 +149,7 @@ const AudioPlayer = () => {
 
   return (
     <div className="fixed min-w-[200px] sm:min-w-[342px] w-fit sm:bottom-[60px] bottom-[20px] bg-white/10 border rounded-xl border-white/30 h-[50px] sm:h-[57px] left-[20px] sm:left-[90px] lg:left-[100px] z-50 backdrop-blur-sm sm:block hidden">
-      <div className="relative sm:pl-[95px] pl-[60px] flex items-center justify-between gap-2 p-2 ">
+      <div className="relative sm:pl-[60px] pl-[60px] flex items-center justify-between gap-2 p-2 ">
         <img
           src="/background/music_player.gif"
           alt="Music"
@@ -180,7 +181,7 @@ const AudioPlayer = () => {
           </button>{" "}
           <button
             onClick={togglePlay}
-            className=" flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all sm:mt-0 -mt-1"
+            className="sm:w-10 sm:h-10  flex items-center justify-center rounded-full hover:bg-opacity-80 transition-all sm:mt-0 -mt-1"
           >
             {isPlaying ? (
               <img
@@ -396,9 +397,10 @@ export function NFT() {
     <>
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />
+        <Header />
         <div className="relative z-10 mt-[260px] sm:mt-[350px] lg:-mt-[150px]">
-          <div className="max-w-[1450px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between">
-            <div className="max-w-[436px] -ml-[60px] flex-col lg:items-start items-center text-white font-medium text-xl hidden lg:flex">
+          <div className="max-w-[2200px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between">
+            <div className="max-w-[436px] flex-col lg:items-start items-center text-white font-medium text-xl hidden lg:flex">
               <div className="w-full p-5 sm:p-9 rounded-xl bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] relative">
                 <h1
                   className="uppercase text-white text-3xl mb-1"
@@ -431,7 +433,7 @@ export function NFT() {
                     style={{
                       fontWeight: "800",
                       background:
-                        "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                        "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                       boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                     }}
                     onClick={handleSwitchNetwork}
@@ -446,7 +448,7 @@ export function NFT() {
                       style={{
                         fontWeight: "800",
                         background:
-                          "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                          "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                         boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                       }}
                       onClick={() => setOpen(true)}
@@ -472,7 +474,7 @@ export function NFT() {
                           style={{
                             fontWeight: "800",
                             background:
-                              "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                              "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                             boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                           }}
                           className={`
@@ -517,6 +519,9 @@ export function NFT() {
                       <Button
                         style={{
                           fontWeight: "800",
+                          background:
+                            "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
+                          boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                         }}
                       >
                         NOT ELIGIBLE
@@ -525,6 +530,9 @@ export function NFT() {
                       <Button
                         style={{
                           fontWeight: "800",
+                          background:
+                            "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
+                          boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                         }}
                       >
                         MINTED

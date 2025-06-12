@@ -47,10 +47,13 @@ export function WalletConnection() {
     return (
       <button
         onClick={handleSwitchNetwork}
-        className="bg-brandColor
-          flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px] border border-borderColor px-2.5 sm:px-5 py-5
+        className="
+          flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px]  px-2.5 sm:px-5 py-5
            text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out
           disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{
+          fontWeight: "900",
+        }}
       >
         Switch to Monad Testnet
       </button>
@@ -58,15 +61,18 @@ export function WalletConnection() {
   }
 
   return (
-    <div>
+    <div className="">
       {!address && (
         <WalletModal open={open} setOpen={setOpen}>
           <button
             onClick={() => setOpen(true)}
-            className={`bg-brandColor
+            className={`
              flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
-             text-lg sm:text-xl text-white font-medium transition-all duration-300 ease-in-out
+             text-lg sm:text-xl text-white transition-all duration-300 ease-in-out
              ${isConnecting ? "opacity-50 cursor-not-allowed" : ""}`}
+            style={{
+              fontWeight: "900",
+            }}
           >
             Connect Wallet
           </button>
@@ -76,10 +82,13 @@ export function WalletConnection() {
         <div className="flex items-center gap-4">
           <button
             onClick={handleDisconnect}
-            className={`bg-brandColor
+            className={`
                 flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
                 text-lg sm:text-xl text-white font-semibold transition-all duration-300 ease-in-out
                 ${isConnecting || isInitialLoading ? "animate-pulse" : ""}`}
+            style={{
+              fontWeight: "900",
+            }}
           >
             {getDisplayText()}
           </button>

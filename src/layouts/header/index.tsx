@@ -1,13 +1,36 @@
 import { WalletConnection } from "@/components/connect-wallet";
+import Link from "next/link";
 
 export const Header = () => {
   return (
-    <header className="absolute pt-[20px] lg:pt-[40px] flex justify-center max-w-[95%] top-0 left-1/2 -translate-x-1/2 w-full">
-      <div className="w-full flex items-center justify-between lg:justify-center relative mx-auto">
-        <div className="lg:absolute top-0 right-0">
-          <WalletConnection />
-        </div>
-      </div>
+    <header className="absolute pt-[20px] lg:pt-[40px] flex justify-between max-w-[95%] top-0 left-1/2 -translate-x-1/2 w-full">
+      <div className="h-[60px] md:h-[115px] flex items-center justify-center z-[1]">
+        <img
+          src="/icon/Logo_SVG.svg"
+          alt="Logo"
+          className="w-full h-full object-cover"
+        />
+      </div>{" "}
+      <ul
+        className="items-center hidden lg:flex gap-10 h-[40px] sm:h-[50px]  text-lg sm:text-xl text-white transition-all duration-300 ease-in-out uppercase"
+        style={{
+          fontWeight: "900",
+        }}
+      >
+        <li>
+          <Link href="/">About</Link>
+        </li>
+        <li>
+          <Link href="/">Lore</Link>
+        </li>
+        <li>
+          <Link href="/">Collection</Link>
+        </li>
+        <li>
+          <Link href="/">Docs</Link>
+        </li>
+      </ul>
+      <WalletConnection />
     </header>
   );
 };

@@ -5,6 +5,7 @@
 (globalThis.TURBOPACK_CHUNK_LISTS = globalThis.TURBOPACK_CHUNK_LISTS || []).push({
   "path": "static/chunks/src_app_layout_tsx_61af54._.js",
   "chunks": [
+    "static/chunks/node_modules_next_dist_6119b4._.js",
     "static/chunks/node_modules_react-icons_io5_index_mjs_39106f._.js",
     "static/chunks/node_modules_react-icons_lib_74ccc9._.js",
     "static/chunks/node_modules_@wagmi_core_dist_esm_8a2061._.js",
@@ -25,10 +26,10 @@
     "static/chunks/node_modules_@walletconnect_5aa004._.js",
     "static/chunks/node_modules_@reown_c0de30._.js",
     "static/chunks/node_modules_@ethersproject_eaacd9._.js",
-    "static/chunks/node_modules_f42f27._.js",
+    "static/chunks/node_modules_6e07ca._.js",
     "static/chunks/src_726437._.js",
     "static/chunks/[root of the server]__17a4c8._.css",
-    "static/chunks/node_modules_9755fb._.js"
+    "static/chunks/node_modules_647062._.js"
   ],
   "source": "dynamic"
 });

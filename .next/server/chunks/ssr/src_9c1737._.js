@@ -1090,6 +1090,7 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/button.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$connect$2d$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/connect-modal.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$connect$2d$wallet$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/connect-wallet.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$UserNFTs$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/UserNFTs.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNFTInteraction$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/hooks/useNFTInteraction.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
@@ -1097,6 +1098,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$mo
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$wagmi$2f$dist$2f$esm$2f$hooks$2f$useAccount$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/wagmi/dist/esm/hooks/useAccount.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$wagmi$2f$dist$2f$esm$2f$hooks$2f$useSwitchChain$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/wagmi/dist/esm/hooks/useSwitchChain.js [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -1117,12 +1119,25 @@ const BackgroundWrapper = ()=>{
                     className: "w-full h-full object-cover"
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 14,
+                    lineNumber: 15,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 13,
+                lineNumber: 14,
+                columnNumber: 7
+            }, this),
+            " ",
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute top-10 right-10 z-[1]",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$connect$2d$wallet$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["WalletConnection"], {}, void 0, false, {
+                    fileName: "[project]/src/feature/home/index.tsx",
+                    lineNumber: 22,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/feature/home/index.tsx",
+                lineNumber: 21,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
@@ -1136,12 +1151,12 @@ const BackgroundWrapper = ()=>{
                     type: "video/mp4"
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 27,
+                    lineNumber: 31,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 20,
+                lineNumber: 24,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
@@ -1155,12 +1170,12 @@ const BackgroundWrapper = ()=>{
                     type: "video/mp4"
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 36,
+                    lineNumber: 40,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 29,
+                lineNumber: 33,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1186,12 +1201,12 @@ const BackgroundWrapper = ()=>{
                     className: "w-full h-full object-cover"
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 46,
+                    lineNumber: 50,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 38,
+                lineNumber: 42,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1217,18 +1232,18 @@ const BackgroundWrapper = ()=>{
                     className: "w-full h-full object-cover"
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 60,
+                    lineNumber: 64,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 52,
+                lineNumber: 56,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/feature/home/index.tsx",
-        lineNumber: 12,
+        lineNumber: 13,
         columnNumber: 5
     }, this);
 };
@@ -1315,7 +1330,7 @@ const AudioPlayer = ()=>{
                     className: "w-[60px] sm:w-[126px] h-[80px] sm:h-[173px] absolute bottom-1/2  translate-y-1/2 sm:translate-y-1/2 translate-x-1/4 sm:-left-[115px] -left-[30px] z-50"
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 152,
+                    lineNumber: 156,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("audio", {
@@ -1323,7 +1338,7 @@ const AudioPlayer = ()=>{
                     src: tracks[currentTrack]
                 }, void 0, false, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 157,
+                    lineNumber: 161,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1340,7 +1355,7 @@ const AudioPlayer = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 159,
+                            lineNumber: 163,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1348,13 +1363,13 @@ const AudioPlayer = ()=>{
                             children: "Monshape.club"
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 168,
+                            lineNumber: 172,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 158,
+                    lineNumber: 162,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1369,12 +1384,12 @@ const AudioPlayer = ()=>{
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/feature/home/index.tsx",
-                                lineNumber: 175,
+                                lineNumber: 179,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 171,
+                            lineNumber: 175,
                             columnNumber: 11
                         }, this),
                         " ",
@@ -1387,7 +1402,7 @@ const AudioPlayer = ()=>{
                                 className: "w-4 h-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/feature/home/index.tsx",
-                                lineNumber: 186,
+                                lineNumber: 190,
                                 columnNumber: 15
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: "/icon/Playlist_Play.svg",
@@ -1395,12 +1410,12 @@ const AudioPlayer = ()=>{
                                 className: "w-4 h-5 rotate-180"
                             }, void 0, false, {
                                 fileName: "[project]/src/feature/home/index.tsx",
-                                lineNumber: 192,
+                                lineNumber: 196,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 181,
+                            lineNumber: 185,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1412,30 +1427,30 @@ const AudioPlayer = ()=>{
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/feature/home/index.tsx",
-                                lineNumber: 203,
+                                lineNumber: 207,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 199,
+                            lineNumber: 203,
                             columnNumber: 11
                         }, this),
                         " "
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/feature/home/index.tsx",
-                    lineNumber: 170,
+                    lineNumber: 174,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/feature/home/index.tsx",
-            lineNumber: 151,
+            lineNumber: 155,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/feature/home/index.tsx",
-        lineNumber: 150,
+        lineNumber: 154,
         columnNumber: 5
     }, this);
 };
@@ -1586,7 +1601,7 @@ function NFT() {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BackgroundWrapper, {}, void 0, false, {
                         fileName: "[project]/src/feature/home/index.tsx",
-                        lineNumber: 398,
+                        lineNumber: 402,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1607,7 +1622,7 @@ function NFT() {
                                                 children: "300 Lost discs."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/feature/home/index.tsx",
-                                                lineNumber: 403,
+                                                lineNumber: 407,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1618,18 +1633,18 @@ function NFT() {
                                                 children: "4 energy codes. One path to unlock the legend. Each disc holds a fragment of the Legendary Code - echoing Astraea' memory, resonating with NADS, pulsing through the Monad ecosystem, and sparking ancient legacy. Mint now to receive one of four mysterious traits, each unlocking real benefits from Monshape or its ecosystem partners."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/feature/home/index.tsx",
-                                                lineNumber: 411,
+                                                lineNumber: 415,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/feature/home/index.tsx",
-                                        lineNumber: 402,
+                                        lineNumber: 406,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/feature/home/index.tsx",
-                                    lineNumber: 401,
+                                    lineNumber: 405,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1648,7 +1663,7 @@ function NFT() {
                                                     children: "Switch Network"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                    lineNumber: 430,
+                                                    lineNumber: 434,
                                                     columnNumber: 19
                                                 }, this) : null,
                                                 !address && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$connect$2d$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["WalletModal"], {
@@ -1664,12 +1679,12 @@ function NFT() {
                                                         children: "Connect Wallet"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                        lineNumber: 445,
+                                                        lineNumber: 449,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                    lineNumber: 444,
+                                                    lineNumber: 448,
                                                     columnNumber: 19
                                                 }, this),
                                                 address && !isWrongNetwork && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1681,7 +1696,7 @@ function NFT() {
                                                         children: "Sold out!"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                        lineNumber: 462,
+                                                        lineNumber: 466,
                                                         columnNumber: 23
                                                     }, this) : userCanMint ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex items-center gap-5 w-full justify-center",
@@ -1702,7 +1717,7 @@ function NFT() {
                                                                     children: "Preparing..."
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                                    lineNumber: 495,
+                                                                    lineNumber: 499,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 mintingStep === "confirming" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1710,7 +1725,7 @@ function NFT() {
                                                                     children: "Confirmation..."
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                                    lineNumber: 500,
+                                                                    lineNumber: 504,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 mintingStep === "success" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1718,7 +1733,7 @@ function NFT() {
                                                                     children: "Success"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                                    lineNumber: 505,
+                                                                    lineNumber: 509,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 mintingStep === "idle" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1727,19 +1742,19 @@ function NFT() {
                                                                         children: "MINT"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                                        lineNumber: 511,
+                                                                        lineNumber: 515,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 }, void 0, false)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/feature/home/index.tsx",
-                                                            lineNumber: 471,
+                                                            lineNumber: 475,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                        lineNumber: 470,
+                                                        lineNumber: 474,
                                                         columnNumber: 23
                                                     }, this) : !userCanMint ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                                         style: {
@@ -1748,7 +1763,7 @@ function NFT() {
                                                         children: "NOT ELIGIBLE"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                        lineNumber: 517,
+                                                        lineNumber: 521,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                                         style: {
@@ -1757,12 +1772,12 @@ function NFT() {
                                                         children: "MINTED"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                        lineNumber: 525,
+                                                        lineNumber: 529,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                    lineNumber: 460,
+                                                    lineNumber: 464,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1782,12 +1797,12 @@ function NFT() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/feature/home/index.tsx",
-                                                                lineNumber: 579,
+                                                                lineNumber: 583,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/feature/home/index.tsx",
-                                                            lineNumber: 572,
+                                                            lineNumber: 576,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1801,7 +1816,7 @@ function NFT() {
                                                                     children: "Total minted"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                                    lineNumber: 594,
+                                                                    lineNumber: 598,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1813,20 +1828,20 @@ function NFT() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                                    lineNumber: 597,
+                                                                    lineNumber: 601,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/feature/home/index.tsx",
-                                                            lineNumber: 588,
+                                                            lineNumber: 592,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "h-[1px] w-full bg-white/50 my-2 sm:my-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/feature/home/index.tsx",
-                                                            lineNumber: 601,
+                                                            lineNumber: 605,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1847,59 +1862,59 @@ function NFT() {
                                                                         children: mintPhaseInfo?.currentPhase === "First Come First Served" ? "FCFS" : mintPhaseInfo?.currentPhase === "Team Only" ? "TEAM" : mintPhaseInfo?.currentPhase === "Whitelist" ? "WHITELIST" : "ENDED"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/feature/home/index.tsx",
-                                                                        lineNumber: 614,
+                                                                        lineNumber: 618,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/feature/home/index.tsx",
-                                                                lineNumber: 603,
+                                                                lineNumber: 607,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/feature/home/index.tsx",
-                                                            lineNumber: 602,
+                                                            lineNumber: 606,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/feature/home/index.tsx",
-                                                    lineNumber: 571,
+                                                    lineNumber: 575,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/feature/home/index.tsx",
-                                            lineNumber: 428,
+                                            lineNumber: 432,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$UserNFTs$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["UserNFTs"], {}, void 0, false, {
                                             fileName: "[project]/src/feature/home/index.tsx",
-                                            lineNumber: 635,
+                                            lineNumber: 639,
                                             columnNumber: 15
                                         }, this),
                                         " "
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/feature/home/index.tsx",
-                                    lineNumber: 427,
+                                    lineNumber: 431,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 400,
+                            lineNumber: 404,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/feature/home/index.tsx",
-                        lineNumber: 399,
+                        lineNumber: 403,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 397,
+                lineNumber: 401,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -1915,12 +1930,12 @@ function NFT() {
                             className: "h-[25px] w-[25px] hover:scale-110 transition-all duration-300"
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 646,
+                            lineNumber: 650,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/feature/home/index.tsx",
-                        lineNumber: 641,
+                        lineNumber: 645,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1933,12 +1948,12 @@ function NFT() {
                             className: "h-[25px] w-[25px] hover:opacity-80 transition-opacity"
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 657,
+                            lineNumber: 661,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/feature/home/index.tsx",
-                        lineNumber: 652,
+                        lineNumber: 656,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1951,12 +1966,12 @@ function NFT() {
                             className: "h-[25px] w-[25px] hover:opacity-80 transition-opacity"
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 668,
+                            lineNumber: 672,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/feature/home/index.tsx",
-                        lineNumber: 663,
+                        lineNumber: 667,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1969,23 +1984,23 @@ function NFT() {
                             className: "h-[25px] w-[25px] hover:opacity-80 transition-opacity"
                         }, void 0, false, {
                             fileName: "[project]/src/feature/home/index.tsx",
-                            lineNumber: 679,
+                            lineNumber: 683,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/feature/home/index.tsx",
-                        lineNumber: 674,
+                        lineNumber: 678,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 640,
+                lineNumber: 644,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AudioPlayer, {}, void 0, false, {
                 fileName: "[project]/src/feature/home/index.tsx",
-                lineNumber: 686,
+                lineNumber: 690,
                 columnNumber: 7
             }, this)
         ]

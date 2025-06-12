@@ -335,7 +335,10 @@ function WalletConnection() {
     if (address && isWrongNetwork) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
             onClick: handleSwitchNetwork,
-            className: "bg-brandColor flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px] border border-borderColor px-2.5 sm:px-5 py-5 text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed",
+            className: " flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px]  px-2.5 sm:px-5 py-5 text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed",
+            style: {
+                fontWeight: "900"
+            },
             children: "Switch to Monad Testnet"
         }, void 0, false, {
             fileName: "[project]/src/components/connect-wallet.tsx",
@@ -344,50 +347,57 @@ function WalletConnection() {
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "",
         children: [
             !address && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$connect$2d$modal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WalletModal"], {
                 open: open,
                 setOpen: setOpen,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: ()=>setOpen(true),
-                    className: `bg-brandColor
+                    className: `
              flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
-             text-lg sm:text-xl text-white font-medium transition-all duration-300 ease-in-out
+             text-lg sm:text-xl text-white transition-all duration-300 ease-in-out
              ${isConnecting ? "opacity-50 cursor-not-allowed" : ""}`,
+                    style: {
+                        fontWeight: "900"
+                    },
                     children: "Connect Wallet"
                 }, void 0, false, {
                     fileName: "[project]/src/components/connect-wallet.tsx",
-                    lineNumber: 64,
+                    lineNumber: 67,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/connect-wallet.tsx",
-                lineNumber: 63,
+                lineNumber: 66,
                 columnNumber: 9
             }, this),
             address && !isWrongNetwork && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex items-center gap-4",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: handleDisconnect,
-                    className: `bg-brandColor
+                    className: `
                 flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
                 text-lg sm:text-xl text-white font-semibold transition-all duration-300 ease-in-out
                 ${isConnecting || isInitialLoading ? "animate-pulse" : ""}`,
+                    style: {
+                        fontWeight: "900"
+                    },
                     children: getDisplayText()
                 }, void 0, false, {
                     fileName: "[project]/src/components/connect-wallet.tsx",
-                    lineNumber: 77,
+                    lineNumber: 83,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/connect-wallet.tsx",
-                lineNumber: 76,
+                lineNumber: 82,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/connect-wallet.tsx",
-        lineNumber: 61,
+        lineNumber: 64,
         columnNumber: 5
     }, this);
 }

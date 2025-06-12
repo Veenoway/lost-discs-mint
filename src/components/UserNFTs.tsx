@@ -20,9 +20,11 @@ export function UserNFTs() {
   if (!address) {
     return (
       <div className="mt-10">
-        <h2 className="text-2xl sm:text-4xl text-white mb-4">MY NFTS (0)</h2>
+        <h2 className="text-lg sm:text-2xl text-white font-bold">
+          MY NFTS ( 0 )
+        </h2>
         <div className="h-48 flex items-center justify-center">
-          <p className="text-[rgba(255,255,255,1)] uppercase text-xl sm:text-3xl">
+          <p className="text-white text-sm sm:text-xl">
             Connect your wallet to see your NFTs
           </p>
         </div>
