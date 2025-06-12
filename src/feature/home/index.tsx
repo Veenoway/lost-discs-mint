@@ -22,7 +22,7 @@ const BackgroundWrapper = () => {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover hidden sm:block"
+        className="absolute top-0 left-0 w-full h-full object-cover hidden lg:block"
       >
         <source src="/background/lost_disc.mp4" type="video/mp4" />
       </video>
@@ -31,7 +31,7 @@ const BackgroundWrapper = () => {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover block sm:hidden"
+        className="absolute top-0 left-0 w-full h-full object-cover block lg:hidden"
       >
         <source src="/background/lost_disc_mobile.mp4" type="video/mp4" />
       </video>
@@ -396,7 +396,7 @@ export function NFT() {
     <>
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />
-        <div className="relative z-10 mt-[260px] md:-mt-[150px]">
+        <div className="relative z-10 mt-[260px] sm:mt-[350px] lg:-mt-[150px]">
           <div className="max-w-[1450px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between">
             <div className="max-w-[436px] -ml-[60px] flex-col lg:items-start items-center text-white font-medium text-xl hidden lg:flex">
               <div className="w-full p-5 sm:p-9 rounded-xl bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] relative">
@@ -570,7 +570,7 @@ export function NFT() {
 
                 <div className="mt-4 sm:mt-6 w-full">
                   <div
-                    className="w-full h-3 sm:h-4 rounded-full overflow-hidden border border-white/30"
+                    className="w-full h-4 rounded-full overflow-hidden border border-white/30"
                     style={{
                       boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                       background: "rgba(255, 255, 255, 0.1)",

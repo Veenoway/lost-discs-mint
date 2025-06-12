@@ -31,14 +31,9 @@ export function UserNFTs() {
   }
 
   return (
-    <div className="mt-2 sm:mt-8">
+    <div className="mt-0 sm:mt-8">
       <div className="flex justify-between items-center mb-2">
-        <h2
-          className="text-xl sm:text-2xl text-white font-bold"
-          style={{
-            fontWeight: "900",
-          }}
-        >
+        <h2 className="text-lg sm:text-2xl text-white font-bold">
           MY NFTS ( {userNFTs.length || 0} )
         </h2>
         {/* <div className="flex items-center gap-3">

@@ -950,15 +950,12 @@ function UserNFTs() {
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "mt-2 sm:mt-8",
+        className: "mt-0 sm:mt-8",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex justify-between items-center mb-2",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-xl sm:text-2xl text-white font-bold",
-                    style: {
-                        fontWeight: "900"
-                    },
+                    className: "text-lg sm:text-2xl text-white font-bold",
                     children: [
                         "MY NFTS ( ",
                         userNFTs.length || 0,
@@ -994,7 +991,7 @@ function UserNFTs() {
                                         muted: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/UserNFTs.tsx",
-                                        lineNumber: 101,
+                                        lineNumber: 96,
                                         columnNumber: 23
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                         src: nft.normalizedImage || "",
@@ -1004,12 +1001,12 @@ function UserNFTs() {
                                         className: " h-[134px] sm:h-[134px] w-full object-cover rounded-lg"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/UserNFTs.tsx",
-                                        lineNumber: 109,
+                                        lineNumber: 104,
                                         columnNumber: 23
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/UserNFTs.tsx",
-                                    lineNumber: 96,
+                                    lineNumber: 91,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1022,29 +1019,29 @@ function UserNFTs() {
                                         children: nftName
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/UserNFTs.tsx",
-                                        lineNumber: 119,
+                                        lineNumber: 114,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/UserNFTs.tsx",
-                                    lineNumber: 118,
+                                    lineNumber: 113,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/UserNFTs.tsx",
-                            lineNumber: 95,
+                            lineNumber: 90,
                             columnNumber: 17
                         }, this)
                     }, `nft-${tokenId}`, false, {
                         fileName: "[project]/src/components/UserNFTs.tsx",
-                        lineNumber: 91,
+                        lineNumber: 86,
                         columnNumber: 15
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/UserNFTs.tsx",
-                lineNumber: 86,
+                lineNumber: 81,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "h-[100px] sm:h-48 flex items-center justify-center",
@@ -1054,24 +1051,24 @@ function UserNFTs() {
                         className: "animate-spin w-8 h-8 border-4 border-[#ffffff] border-t-transparent rounded-full"
                     }, void 0, false, {
                         fileName: "[project]/src/components/UserNFTs.tsx",
-                        lineNumber: 137,
+                        lineNumber: 132,
                         columnNumber: 15
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/UserNFTs.tsx",
-                    lineNumber: 136,
+                    lineNumber: 131,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-white text-sm sm:text-xl",
                     children: "No NFTs found."
                 }, void 0, false, {
                     fileName: "[project]/src/components/UserNFTs.tsx",
-                    lineNumber: 140,
+                    lineNumber: 135,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/UserNFTs.tsx",
-                lineNumber: 134,
+                lineNumber: 129,
                 columnNumber: 9
             }, this)
         ]
@@ -1133,7 +1130,7 @@ const BackgroundWrapper = ()=>{
                 loop: true,
                 muted: true,
                 playsInline: true,
-                className: "absolute top-0 left-0 w-full h-full object-cover hidden sm:block",
+                className: "absolute top-0 left-0 w-full h-full object-cover hidden lg:block",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
                     src: "/background/lost_disc.mp4",
                     type: "video/mp4"
@@ -1152,7 +1149,7 @@ const BackgroundWrapper = ()=>{
                 loop: true,
                 muted: true,
                 playsInline: true,
-                className: "absolute top-0 left-0 w-full h-full object-cover block sm:hidden",
+                className: "absolute top-0 left-0 w-full h-full object-cover block lg:hidden",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
                     src: "/background/lost_disc_mobile.mp4",
                     type: "video/mp4"
@@ -1593,7 +1590,7 @@ function NFT() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "relative z-10 mt-[260px] md:-mt-[150px]",
+                        className: "relative z-10 mt-[260px] sm:mt-[350px] lg:-mt-[150px]",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "max-w-[1450px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between",
                             children: [
@@ -1772,7 +1769,7 @@ function NFT() {
                                                     className: "mt-4 sm:mt-6 w-full",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-full h-3 sm:h-4 rounded-full overflow-hidden border border-white/30",
+                                                            className: "w-full h-4 rounded-full overflow-hidden border border-white/30",
                                                             style: {
                                                                 boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                                                                 background: "rgba(255, 255, 255, 0.1)"

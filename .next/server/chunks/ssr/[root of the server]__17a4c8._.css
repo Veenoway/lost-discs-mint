@@ -630,6 +630,10 @@ img, video {
   margin-top: 260px;
 }
 
+.mt-\[350px\] {
+  margin-top: 350px;
+}
+
 .block {
   display: block;
 }
@@ -1611,6 +1615,18 @@ body {
     margin-top: 1.5rem;
   }
 
+  .sm\:mt-\[200px\] {
+    margin-top: 200px;
+  }
+
+  .sm\:mt-\[300px\] {
+    margin-top: 300px;
+  }
+
+  .sm\:mt-\[350px\] {
+    margin-top: 350px;
+  }
+
   .sm\:block {
     display: block;
   }
@@ -1837,8 +1853,20 @@ body {
     margin-top: 220px;
   }
 
+  .lg\:-mt-\[150px\] {
+    margin-top: -150px;
+  }
+
+  .lg\:block {
+    display: block;
+  }
+
   .lg\:flex {
     display: flex;
+  }
+
+  .lg\:hidden {
+    display: none;
   }
 
   .lg\:flex-row {
