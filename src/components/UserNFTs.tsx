@@ -17,21 +17,6 @@ export function UserNFTs() {
     }
   }, [address, refreshUserNFTs]);
 
-  const handleRefresh = async () => {
-    if (isLoadingNFTs) {
-      return;
-    }
-
-    try {
-      console.log("Manual NFT refresh");
-      await refreshUserNFTs();
-    } catch (error) {
-      console.error("Error refreshing NFTs:", error);
-    }
-  };
-
-  console.log(userNFTs);
-
   if (!address) {
     return (
       <div className="mt-10">
@@ -46,7 +31,7 @@ export function UserNFTs() {
   }
 
   return (
-    <div className="mt-5 sm:mt-8">
+    <div className="mt-2 sm:mt-8">
       <div className="flex justify-between items-center mb-2">
         <h2
           className="text-xl sm:text-2xl text-white font-bold"

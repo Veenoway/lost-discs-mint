@@ -10,7 +10,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 const BackgroundWrapper = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden">
-      <div className="h-[50px] md:h-[115px] flex items-center justify-center z-[1000] absolute top-[20px] md:top-[80px] left-[20px] md:left-[80px]">
+      <div className="h-[60px] md:h-[115px] flex items-center justify-center z-[1000] absolute top-[20px] md:top-[80px] left-[20px] md:left-[80px]">
         <img
           src="/icon/Logo_SVG.svg"
           alt="Logo"
@@ -22,9 +22,18 @@ const BackgroundWrapper = () => {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover hidden sm:block"
       >
         <source src="/background/lost_disc.mp4" type="video/mp4" />
+      </video>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover block sm:hidden"
+      >
+        <source src="/background/lost_disc_mobile.mp4" type="video/mp4" />
       </video>
       <motion.div
         className="absolute bottom-0 left-0 "
@@ -138,7 +147,7 @@ const AudioPlayer = () => {
   }, [currentTrack]);
 
   return (
-    <div className="fixed min-w-[200px] sm:min-w-[342px] w-fit sm:bottom-[60px] bottom-[20px] bg-white/10 border rounded-xl border-white/30 h-[50px] sm:h-[57px] left-[20px] sm:left-[90px] lg:left-[100px] z-50 backdrop-blur-sm">
+    <div className="fixed min-w-[200px] sm:min-w-[342px] w-fit sm:bottom-[60px] bottom-[20px] bg-white/10 border rounded-xl border-white/30 h-[50px] sm:h-[57px] left-[20px] sm:left-[90px] lg:left-[100px] z-50 backdrop-blur-sm sm:block hidden">
       <div className="relative sm:pl-[95px] pl-[60px] flex items-center justify-between gap-2 p-2 ">
         <img
           src="/background/music_player.gif"
@@ -387,7 +396,7 @@ export function NFT() {
     <>
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />
-        <div className="relative z-10 mt-[200px] md:-mt-[150px]">
+        <div className="relative z-10 mt-[260px] md:-mt-[150px]">
           <div className="max-w-[1450px] w-[90%] mx-auto mt-[40px] lg:mt-[220px] flex lg:flex-row flex-col  lg:justify-between">
             <div className="max-w-[436px] -ml-[60px] flex-col lg:items-start items-center text-white font-medium text-xl hidden lg:flex">
               <div className="w-full p-5 sm:p-9 rounded-xl bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] relative">
@@ -421,6 +430,9 @@ export function NFT() {
                   <Button
                     style={{
                       fontWeight: "800",
+                      background:
+                        "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
+                      boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                     }}
                     onClick={handleSwitchNetwork}
                   >
@@ -556,9 +568,9 @@ export function NFT() {
                   )}
                 </div> */}
 
-                <div className="mt-6 w-full">
+                <div className="mt-4 sm:mt-6 w-full">
                   <div
-                    className="w-full h-4 rounded-full overflow-hidden border border-white/30"
+                    className="w-full h-3 sm:h-4 rounded-full overflow-hidden border border-white/30"
                     style={{
                       boxShadow: "0px 0px 7.1px 1px #5F2AFF",
                       background: "rgba(255, 255, 255, 0.1)",
@@ -586,7 +598,7 @@ export function NFT() {
                       {totalMinted || 0} / {maxSupply || 377}
                     </span>
                   </div>
-                  <div className="h-0.5 w-full bg-white/50 my-4" />
+                  <div className="h-[1px] w-full bg-white/50 my-2 sm:my-4" />
                   <div className="flex items-center justify-between">
                     <p
                       className="text-white font-medium text-base sm:text-xl sm:text-[20px] mb-4 uppercase"
@@ -625,7 +637,7 @@ export function NFT() {
           </div>
         </div>
       </main>
-      <footer className="fixed bottom-[50px] right-[60px] gap-4 z-50 hidden sm:flex">
+      <footer className="fixed bottom-[20px] sm:bottom-[50px] right-[20px] sm:right-[60px] gap-4 z-50 flex">
         <a
           href="https://monshape.club"
           target="_blank"
@@ -660,7 +672,7 @@ export function NFT() {
           />
         </a>
         <a
-          href="https://docs.monshape.com"
+          href="https://monshapes-documents.gitbook.io/docs"
           target="_blank"
           rel="noopener noreferrer"
         >
