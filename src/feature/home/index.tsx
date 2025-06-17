@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/button";
 import { WalletModal } from "@/components/connect-modal";
+import { MintedNFTModal } from "@/components/MintedNFTModal";
 import { UserNFTs } from "@/components/UserNFTs";
 import { useNFT } from "@/hooks/useNFTInteraction";
 import { Header } from "@/layouts/header";
@@ -208,14 +209,14 @@ const AudioPlayer = () => {
 };
 
 export function NFT() {
-  const { address, chainId, isDisconnected } = useAccount();
+  const { address, chainId } = useAccount();
   const { switchChainAsync } = useSwitchChain();
   const isWrongNetwork = chainId !== 10143;
   const [open, setOpen] = useState(false);
   const [mintingStep, setMintingStep] = useState<
     "idle" | "preparing" | "confirming" | "success" | "error"
   >("idle");
-  const [, setLastMintedNFT] = useState<{
+  const [lastMintedNFT, setLastMintedNFT] = useState<{
     id: string;
     image: string;
   } | null>(null);
@@ -231,14 +232,9 @@ export function NFT() {
     userMintStatus,
     mintPhaseInfo,
     lastMintedTokenId,
-    isUserWL,
-    isUserFCFS,
-    isUserTeam,
   } = useNFT();
 
   const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
-  const userMints = userMintStatus?.mintsDone || 0;
-  const maxMintsPerAddress = userMintStatus?.mintsAllowed || 1;
   const userStatusInfo = userMintStatus?.userStatus || "";
   const isWhitelisted =
     userStatusInfo.includes("WHITELIST") || userStatusInfo.includes("OG");
@@ -286,6 +282,10 @@ export function NFT() {
             });
           } else {
             checkForNFTMetadata();
+            setLastMintedNFT({
+              id: String(29),
+              image: "/placeholder-nft.png",
+            });
           }
 
           if (successTimeoutRef.current) {
@@ -352,8 +352,15 @@ export function NFT() {
   };
 
   useEffect(() => {
+    console.log(isMintSuccess, lastMintedTokenId, "ISMINT");
     if (isMintSuccess) {
       setMintingStep("success");
+
+      // Affiche la popup avec l'id du NFT minté
+      setLastMintedNFT({
+        id: String(lastMintedTokenId),
+        image: "/placeholder-nft.png", // ou l'image réelle si tu l'as
+      });
 
       if (successTimeoutRef.current) {
         clearTimeout(successTimeoutRef.current);
@@ -364,7 +371,7 @@ export function NFT() {
         successTimeoutRef.current = null;
       }, 3000);
     }
-  }, [isMintSuccess]);
+  }, [isMintSuccess, lastMintedTokenId]);
 
   useEffect(() => {
     return () => {
@@ -388,8 +395,23 @@ export function NFT() {
     }
   }, []);
 
+  useEffect(() => {
+    if (lastMintedTokenId) {
+      setLastMintedNFT({
+        id: String(lastMintedTokenId),
+        image: "/placeholder-nft.png",
+      });
+    }
+  }, [lastMintedTokenId]);
+
   return (
     <>
+      {lastMintedNFT && (
+        <MintedNFTModal
+          nft={lastMintedNFT}
+          onClose={() => setLastMintedNFT(null)}
+        />
+      )}
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />
         <Header />
