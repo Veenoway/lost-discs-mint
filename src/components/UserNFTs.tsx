@@ -5,112 +5,119 @@ import { useEffect, useState } from "react";
 import { readContract } from "viem/actions";
 import { useAccount, usePublicClient } from "wagmi";
 
+type NFTMetadata = {
+  name: string;
+  description: string;
+  image: string;
+  animation_url: string;
+  attributes: Array<{
+    trait_type: string;
+    value: string;
+  }>;
+};
+
+type NFT = {
+  tokenId: string;
+  metadataId: string;
+  tokenURI: string;
+  metadata: NFTMetadata | null;
+};
+
 export function UserNFTs() {
   const { isLoadingNFTs } = useNFT();
   const { address } = useAccount();
   const publicClient = usePublicClient();
-  const [nfts, setNfts] = useState<
-    Array<{
-      tokenId: string;
-      metadataId: string;
-      tokenURI: string;
-      metadata: {
-        name: string;
-        description: string;
-        image: string;
-        animation_url: string;
-        attributes: Array<{
-          trait_type: string;
-          value: string;
-        }>;
-      };
-    }>
-  >([]);
+  const [nfts, setNfts] = useState<NFT[]>([]);
+  const metadataCache = new Map<string, NFTMetadata>();
 
-  const IPFS_GATEWAY = "https://ipfs.io/ipfs/";
+  const IPFS_GATEWAYS = ["https://ipfs.io/ipfs/"];
+  const getRandomGateway = () => {
+    return IPFS_GATEWAYS[Math.floor(Math.random() * IPFS_GATEWAYS.length)];
+  };
 
-  const fetchNftMetadata = async (tokenUri: string) => {
+  const fetchNftMetadata = async (
+    tokenUri: string
+  ): Promise<NFTMetadata | null> => {
+    const cached = metadataCache.get(tokenUri);
+    if (cached) return cached;
+
+    const gateway = getRandomGateway();
     const url = tokenUri.startsWith("ipfs://")
-      ? tokenUri.replace("ipfs://", IPFS_GATEWAY)
+      ? tokenUri.replace("ipfs://", gateway)
       : tokenUri;
+
     try {
-      const response = await fetch(url, { cache: "no-store" });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch tokenURI: ${response.statusText}`);
+      const res = await fetch(
+        `/api/pinata?cidOrPath=${encodeURIComponent(url)}`,
+        {
+          method: "GET",
+        }
+      );
+      if (!res.ok) {
+        return null;
       }
 
-      const metadata = await response.json();
+      const metadata = await res.json();
       if (metadata.image?.startsWith("ipfs://")) {
-        metadata.image = metadata.image.replace(
-          "ipfs://",
-          "https://gateway.pinata.cloud/ipfs/"
-        );
+        metadata.image = metadata.image.replace("ipfs://", gateway);
       }
 
-      if (metadata.animation_url?.startsWith("ipfs://")) {
-        metadata.animation_url = metadata.animation_url.replace(
-          "ipfs://",
-          "https://gateway.pinata.cloud/ipfs/"
-        );
-      }
-
+      metadataCache.set(tokenUri, metadata);
       return metadata;
-    } catch (err) {
-      console.error("Erreur lors du fetch du metadata:", err);
+    } catch (e) {
+      console.error("IPFS fetch error", e);
       return null;
     }
   };
 
   const fetchUserNFTs = async () => {
-    try {
-      if (!publicClient) return [];
+    if (!publicClient || !address) return;
 
-      const userNFTs = await readContract(publicClient, {
+    try {
+      const userNFTs = (await readContract(publicClient, {
         address: NFT_ADDRESS,
         abi: NFT_ABI,
         functionName: "getUserNFTsDetailed",
         args: [address],
-      });
+      })) as [bigint[], bigint[], string[]];
 
-      if (!userNFTs || !Array.isArray(userNFTs)) {
-        console.error("Invalid response format for user NFTs");
-        return [];
-      }
-
-      const formattedNFTs = [];
+      const updatedNFTs: NFT[] = [];
 
       for (let i = 0; i < userNFTs[0].length; i++) {
-        const nft = {
-          tokenId: userNFTs[0][i],
-          metadataId: userNFTs[1][i],
-          tokenURI: userNFTs[2][i],
-        };
+        const tokenId = userNFTs[0][i].toString();
+        const tokenURI = userNFTs[2][i];
 
-        let metadata = await fetchNftMetadata(nft.tokenURI);
-        while (!metadata) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          metadata = await fetchNftMetadata(nft.tokenURI);
-        }
-        formattedNFTs.push({ ...nft, metadata });
+        const metadata = await fetchNftMetadata(tokenURI);
+
+        updatedNFTs.push({
+          tokenId,
+          metadataId: userNFTs[1][i].toString(),
+          tokenURI,
+          metadata,
+        });
       }
 
-      setNfts(formattedNFTs);
+      setNfts((prev) => {
+        const prevIds = prev.map((nft) => nft.tokenId);
+        const updatedIds = updatedNFTs.map((nft) => nft.tokenId);
+
+        const hasChanged =
+          prevIds.length !== updatedIds.length ||
+          !updatedIds.every((id) => prevIds.includes(id));
+
+        return hasChanged ? updatedNFTs : prev;
+      });
     } catch (error) {
-      console.error("Error fetching user NFTs:", error);
-      return [];
+      console.error("Failed to fetch NFTs:", error);
     }
   };
 
   useEffect(() => {
-    if (address && publicClient) {
-      fetchUserNFTs();
-      const interval = setInterval(() => {
-        fetchUserNFTs();
-      }, 1000);
+    if (!address || !publicClient) return;
+    fetchUserNFTs();
 
-      return () => clearInterval(interval);
-    }
+    const interval = setInterval(fetchUserNFTs, 30_000); // toutes les 30s
+    return () => clearInterval(interval);
   }, [address, publicClient]);
 
   if (!address) {
@@ -178,7 +185,7 @@ export function UserNFTs() {
       {nfts && nfts.length > 0 ? (
         <div className="flex overflow-x-auto gap-3 scrollbar-hide">
           {nfts.map((nft) => {
-            const tokenId = nft.tokenId.toString();
+            const tokenId = nft.tokenId;
             const metadata = nft.metadata;
             const nftName = metadata?.name || `NFT #${tokenId}`;
             return (
@@ -188,9 +195,12 @@ export function UserNFTs() {
               >
                 <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1">
                   <div className="relative w-full h-auto">
-                    {metadata?.animation_url ? (
+                    {!metadata?.animation_url ? (
                       <video
-                        src={metadata?.image}
+                        src={metadata?.animation_url?.replace(
+                          "ipfs.io",
+                          "gateway.pinata.cloud"
+                        )}
                         className="w-full h-[134px] sm:h-[134px] object-cover rounded-lg"
                         loop
                         muted
@@ -199,7 +209,10 @@ export function UserNFTs() {
                       />
                     ) : (
                       <img
-                        src={metadata?.image || ""}
+                        src={metadata?.image?.replace(
+                          "ipfs.io",
+                          "gateway.pinata.cloud"
+                        )}
                         alt={nftName}
                         width={400}
                         height={262}

@@ -132,8 +132,6 @@ export default function WalletChecker() {
 
       const userTrueStatus = String(userStatus);
 
-      console.log(userTrueStatus);
-
       let statusText;
 
       switch (userTrueStatus) {
