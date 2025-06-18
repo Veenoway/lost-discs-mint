@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { cookieStorage, createStorage } from "wagmi";
+import { cookieStorage, createStorage, fallback, http, webSocket } from "wagmi";
+import { injected, metaMask, walletConnect } from "wagmi/connectors";
 
 export const monadTestnet = {
   id: 10143,
@@ -16,11 +17,13 @@ export const monadTestnet = {
       http: [
         "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9",
       ],
+      webSocket: ["wss://rpc-testnet.monadinfra.com/"],
     },
     public: {
       http: [
         "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9",
       ],
+      webSocket: ["wss://rpc-testnet.monadinfra.com/"],
     },
   },
   blockExplorers: {
@@ -73,6 +76,25 @@ export const wagmiAdapter = new WagmiAdapter({
   ssr: true,
   networks,
   projectId,
+  connectors: [
+    injected(),
+    metaMask(),
+    walletConnect({
+      projectId,
+      metadata: {
+        name: "Blocknads",
+        description: "Blocknads Auction",
+        url: "https://blocknads.art",
+        icons: ["https://blocknads.art/logo-bg.jpg"],
+      },
+    }),
+  ],
+  transports: {
+    [monadTestnet.id]: fallback([
+      webSocket(monadTestnet.rpcUrls.default.webSocket[0]),
+      http(monadTestnet.rpcUrls.default.http[0]),
+    ]),
+  },
 });
 
 export const config = wagmiAdapter.wagmiConfig;

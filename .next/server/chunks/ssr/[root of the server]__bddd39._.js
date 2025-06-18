@@ -180,28 +180,31 @@ const WalletModal = ({ children, open, setOpen })=>{
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$shadcn$2f$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogContent"], {
                 close: ()=>setOpen(false),
-                className: "sm:max-w-[600px] px-10 py-8 rounded-xl bg-[#858585] backdrop-blur-sm w-full mx-auto bg-[#ffffff13] border border-[rgba(255,255,255,0.37)] text-2xl uppercase text-white transition-all duration-300 ease-in-out",
+                style: {
+                    boxShadow: "0 0 30px 0 rgba(0, 238, 255, 0.2)"
+                },
+                className: "fixed bg-[#020202] z-[100] max-w-[500px] w-[90%] py-6 sm:py-8 px-6 sm:px-10 flex flex-col items-center justify-center bg-black/70 rounded-2xl",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$shadcn$2f$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogHeader"], {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$shadcn$2f$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogTitle"], {
-                            className: "text-2xl md:text-4xl mb-3 text-white uppercase",
+                            className: "text-2xl md:text-3xl sm:mb-3 mb-2 text-white uppercase",
                             children: "Connect Wallet"
                         }, void 0, false, {
                             fileName: "[project]/src/components/connect-modal.tsx",
-                            lineNumber: 24,
+                            lineNumber: 27,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/connect-modal.tsx",
-                        lineNumber: 23,
+                        lineNumber: 26,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex flex-wrap gap-5 w-full",
-                        children: connectors?.map((connector, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: "flex flex-wrap gap-3 sm:gap-5 w-full",
+                        children: connectors?.map((connector, i)=>{
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 style: {
-                                    width: "calc(50% - 10px)",
-                                    fontWeight: "800"
+                                    width: "calc(50% - 10px)"
                                 },
                                 onClick: ()=>{
                                     connect({
@@ -209,27 +212,28 @@ const WalletModal = ({ children, open, setOpen })=>{
                                     });
                                     setOpen(false);
                                 },
-                                className: "bg-gradient-to-r from-[rgba(73,255,255,0.5)] to-[rgba(153,0,255,0.5)] hover:from-[rgba(73,255,255,0.8)] hover:to-[rgba(153,0,255,0.8)] transition-all duration-300 ease-in-out flex items-center justify-center rounded h-[66px] px-2 font-thin text-xl",
+                                className: "bg-[#836EF9] hover:bg-[#836EF9]/80 transition-all duration-300 ease-in-out flex items-center justify-center rounded-md h-[45px] sm:h-[54px] px-2 font-normal text-sm sm:text-lg",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                        src: connector.icon,
+                                        src: connector.icon ? connector.icon : connector.name === "MetaMask" ? "/social/metamask.webp" : connector.name === "WalletConnect" ? "/social/wallet-connect.png" : "/social/link.png",
                                         alt: connector.name,
-                                        className: "w-6 h-6 mr-3"
+                                        className: `${connector.name === "Injected" ? "w-4 h-4" : "w-5 h-5"} mr-3`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/connect-modal.tsx",
-                                        lineNumber: 42,
-                                        columnNumber: 15
+                                        lineNumber: 45,
+                                        columnNumber: 17
                                     }, this),
                                     connector.name
                                 ]
                             }, i, true, {
                                 fileName: "[project]/src/components/connect-modal.tsx",
-                                lineNumber: 30,
-                                columnNumber: 13
-                            }, this))
+                                lineNumber: 34,
+                                columnNumber: 15
+                            }, this);
+                        })
                     }, void 0, false, {
                         fileName: "[project]/src/components/connect-modal.tsx",
-                        lineNumber: 28,
+                        lineNumber: 31,
                         columnNumber: 9
                     }, this)
                 ]
@@ -538,6 +542,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reown$2f$a
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reown$2f$appkit$2d$adapter$2d$wagmi$2f$dist$2f$esm$2f$src$2f$client$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@reown/appkit-adapter-wagmi/dist/esm/src/client.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$core$2f$dist$2f$esm$2f$createStorage$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@wagmi/core/dist/esm/createStorage.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$core$2f$dist$2f$esm$2f$utils$2f$cookie$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@wagmi/core/dist/esm/utils/cookie.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$core$2f$dist$2f$esm$2f$connectors$2f$injected$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@wagmi/core/dist/esm/connectors/injected.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$connectors$2f$dist$2f$esm$2f$metaMask$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@wagmi/connectors/dist/esm/metaMask.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$connectors$2f$dist$2f$esm$2f$walletConnect$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@wagmi/connectors/dist/esm/walletConnect.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$core$2f$dist$2f$esm$2f$transports$2f$fallback$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@wagmi/core/dist/esm/transports/fallback.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$viem$2f$_esm$2f$clients$2f$transports$2f$webSocket$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/viem/_esm/clients/transports/webSocket.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$viem$2f$_esm$2f$clients$2f$transports$2f$http$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/viem/_esm/clients/transports/http.js [app-ssr] (ecmascript)");
+;
 ;
 ;
 const monadTestnet = {
@@ -553,11 +564,17 @@ const monadTestnet = {
         default: {
             http: [
                 "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9"
+            ],
+            webSocket: [
+                "wss://rpc-testnet.monadinfra.com/"
             ]
         },
         public: {
             http: [
                 "https://monad-testnet.blockvision.org/v1/2yIlIVgRKChgqvol2h5yrqiJGb9"
+            ],
+            webSocket: [
+                "wss://rpc-testnet.monadinfra.com/"
             ]
         }
     },
@@ -581,7 +598,28 @@ const wagmiAdapter = new __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
     }),
     ssr: true,
     networks,
-    projectId
+    projectId,
+    connectors: [
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$core$2f$dist$2f$esm$2f$connectors$2f$injected$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["injected"])(),
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$connectors$2f$dist$2f$esm$2f$metaMask$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["metaMask"])(),
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$connectors$2f$dist$2f$esm$2f$walletConnect$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["walletConnect"])({
+            projectId,
+            metadata: {
+                name: "Blocknads",
+                description: "Blocknads Auction",
+                url: "https://blocknads.art",
+                icons: [
+                    "https://blocknads.art/logo-bg.jpg"
+                ]
+            }
+        })
+    ],
+    transports: {
+        [monadTestnet.id]: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$wagmi$2f$core$2f$dist$2f$esm$2f$transports$2f$fallback$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["fallback"])([
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$viem$2f$_esm$2f$clients$2f$transports$2f$webSocket$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["webSocket"])(monadTestnet.rpcUrls.default.webSocket[0]),
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$viem$2f$_esm$2f$clients$2f$transports$2f$http$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["http"])(monadTestnet.rpcUrls.default.http[0])
+        ])
+    }
 });
 const config = wagmiAdapter.wagmiConfig;
 }}),

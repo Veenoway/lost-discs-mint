@@ -216,22 +216,14 @@ export function NFT() {
   const [mintingStep, setMintingStep] = useState<
     "idle" | "preparing" | "confirming" | "success" | "error"
   >("idle");
-  const [lastMintedNFT, setLastMintedNFT] = useState<{
-    id: string;
-    image: string;
-  } | null>(null);
-  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
     maxSupply,
     totalMinted,
     isPaused,
     mintWithSignature,
-    isSuccess: isMintSuccess,
     userMintStatus,
     mintPhaseInfo,
-    lastMintedTokenId,
   } = useNFT();
 
   const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
@@ -263,10 +255,6 @@ export function NFT() {
       setMintingStep("confirming");
       if (result) {
         setMintingStep("success");
-
-        if (successTimeoutRef.current) {
-          clearTimeout(successTimeoutRef.current);
-        }
       } else {
         setMintingStep("idle");
       }

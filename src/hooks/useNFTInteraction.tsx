@@ -13,7 +13,6 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { readContract } from "wagmi/actions";
 
 interface NFTMetadata {
   tokenId: bigint;
@@ -125,7 +124,7 @@ export function useNFT() {
     args: address ? [address] : undefined,
   });
 
-  const { writeContract, data: txHash, error } = useWriteContract();
+  const { data: txHash, error } = useWriteContract();
   const { isLoading: isMintLoading, isSuccess: isMintSuccess } =
     useWaitForTransactionReceipt({ hash: txHash });
 
@@ -216,7 +215,6 @@ export function useNFT() {
         typeof err.shortMessage === "string" &&
         err.shortMessage.includes("User rejected")
       ) {
-        console.log("Transaction rejetée");
       } else {
         console.error("Error during mint:", err);
       }
@@ -277,7 +275,7 @@ export function useNFT() {
           invalidateQueries();
 
           try {
-            const currentTotalMinted = (await readContract(publicClient, {
+            const currentTotalMinted = (await publicClient.readContract({
               address: NFT_ADDRESS,
               abi: NFT_ABI,
               functionName: "totalMinted",
