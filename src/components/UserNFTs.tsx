@@ -1,6 +1,5 @@
 "use client";
 import { NFT_ABI, NFT_ADDRESS } from "@/contract";
-import { useNFT } from "@/hooks/useNFTInteraction";
 import { useEffect, useState } from "react";
 import { readContract } from "viem/actions";
 import { useAccount, usePublicClient } from "wagmi";
@@ -24,7 +23,6 @@ type NFT = {
 };
 
 export function UserNFTs() {
-  const { isLoadingNFTs } = useNFT();
   const { address } = useAccount();
   const publicClient = usePublicClient();
   const [nfts, setNfts] = useState<NFT[]>([]);
@@ -237,7 +235,8 @@ export function UserNFTs() {
         </div>
       ) : (
         <div className="h-[100px] sm:h-48 flex items-center justify-center">
-          {isLoadingNFTs ? (
+          {/* TODO: remove this */}
+          {true ? (
             <div className="flex flex-col items-center">
               <div className="animate-spin w-8 h-8 border-4 border-[#ffffff] border-t-transparent rounded-full"></div>
             </div>

@@ -14,23 +14,6 @@ import {
   useWriteContract,
 } from "wagmi";
 
-interface NFTMetadata {
-  tokenId: bigint;
-  metadataId: bigint;
-  name: string;
-  description: string;
-  image: string;
-  attributes: Array<{ trait_type: string; value: string }>;
-}
-
-interface UserNFTDetailed {
-  tokenId: bigint;
-  metadataId: bigint;
-  tokenURI: string;
-  metadata?: NFTMetadata;
-  normalizedImage?: string;
-}
-
 export function useNFT() {
   const { address, isConnected } = useAccount();
   const queryClient = useQueryClient();
@@ -41,15 +24,11 @@ export function useNFT() {
   );
   const isFirstMount = useRef(true);
   const [mintPrice, setMintPrice] = useState<bigint>(BigInt(0));
-  const [userNFTs, setUserNFTs] = useState<UserNFTDetailed[]>([]);
-  const [nftMetadata, setNftMetadata] = useState<NFTMetadata[]>([]);
-  const [isLoadingNFTs, setIsLoadingNFTs] = useState(false);
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const {
     signMessage,
     data: signature,
     isError: isSignError,
-    isLoading: isSignLoading,
   } = useSignMessage();
   const { writeContractAsync } = useWriteContract();
 
@@ -399,7 +378,6 @@ export function useNFT() {
     isSuccess: isMintSuccess,
     error,
     lastMintedTokenId,
-    isLoadingNFTs,
 
     getMintPrice,
     getFormattedPrice,
@@ -416,14 +394,11 @@ export function useNFT() {
     mintPhaseInfo: formatMintPhaseInfo(),
 
     mintPrice,
-    nftMetadata,
-    userNFTs,
 
     verifySignature,
     requestSignature,
     signature,
     isSignError,
-    isSignLoading,
     mintWithSignature,
   };
 }

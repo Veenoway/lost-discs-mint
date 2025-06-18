@@ -1,5 +1,4 @@
 import { NFT_ABI, NFT_ADDRESS } from "@/contract";
-import { useNFT } from "@/hooks/useNFTInteraction";
 import { useEffect, useState } from "react";
 import { readContract } from "viem/actions";
 import { useAccount, usePublicClient } from "wagmi";
@@ -29,7 +28,6 @@ export function MintedNFTModal({
   mintingStep: string;
   onClose: () => void;
 }) {
-  const { isLoadingNFTs } = useNFT();
   const { address } = useAccount();
   const publicClient = usePublicClient();
   const [nftMinted, setNftMinted] = useState<NFT | null>(null);
@@ -114,10 +112,6 @@ export function MintedNFTModal({
     if (!address || !publicClient) return;
     fetchUserNFTs();
   }, [address, publicClient]);
-
-  if (isLoadingNFTs) {
-    return <div>Loading...</div>;
-  }
 
   if (mintingStep !== "success" || !nftMinted) {
     return null;
