@@ -23,14 +23,12 @@ type NFTMetadata = {
 };
 
 export function MintedNFTModal({
-  nft,
+  mintingStep,
   onClose,
 }: {
-  nft: { id: string; image: string };
+  mintingStep: string;
   onClose: () => void;
 }) {
-  if (!nft) return null;
-
   const { isLoadingNFTs } = useNFT();
   const { address } = useAccount();
   const publicClient = usePublicClient();
@@ -121,39 +119,79 @@ export function MintedNFTModal({
     return <div>Loading...</div>;
   }
 
-  console.log(nftMinted, "NFTS");
-
-  if (!nftMinted) {
+  if (mintingStep !== "success" || !nftMinted) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-      <div className="bg-[#181818] rounded-xl p-6 text-center relative max-w-xs w-[90%] shadow-2xl border border-white/20">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 animate-[fadeIn_0.3s_ease-in-out]"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div
+        style={{
+          boxShadow: "0 0 30px 0 rgba(0, 238, 255, 0.2)",
+        }}
+        className="bg-[#020202] rounded-xl text-center relative max-w-[440px] px-10 py-8 pb-12 w-[90%] animate-[scaleIn_0.3s_ease-in-out]"
+      >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-white text-2xl hover:scale-110 transition-transform"
+          className="absolute top-3 right-4 text-white text-2xl hover:scale-110 transition-transform"
           aria-label="Fermer la popup"
         >
           ×
         </button>
-        <h2 className="text-white text-2xl font-bold mb-4">Félicitations !</h2>
-        <img
-          src={nftMinted.metadata?.image?.replace(
-            "ipfs.io",
-            "gateway.pinata.cloud"
-          )}
-          alt={`NFT #${nftMinted.tokenId}`}
-          className="w-40 h-40 object-cover rounded-lg mx-auto mb-4 border border-white/10"
+        <h2 className="text-white text-2xl sm:text-3xl font-bold mb-6">
+          Mint Successful!
+        </h2>
+        <video
+          src={
+            nftMinted.metadata?.animation_url?.includes("ipfs://")
+              ? nftMinted.metadata?.animation_url?.replace(
+                  "ipfs://",
+                  "https://gateway.pinata.cloud/ipfs/"
+                )
+              : nftMinted.metadata?.animation_url?.replace(
+                  "ipfs/",
+                  "https://gateway.pinata.cloud/ipfs/"
+                )
+          }
+          autoPlay
+          loop
+          playsInline
+          className="w-[200px] h-[200px] object-cover rounded-lg mx-auto mb-4 border border-white/10"
         />
-        <p className="text-white text-lg font-semibold mb-2">
-          Tu viens de mint le NFT #{nftMinted.tokenId} !
+        <p className="text-white text-base sm:text-lg font-semibold mb-2">
+          {nftMinted.metadata?.name || "NFT"}
+        </p>
+        <p className="text-white text-xs sm:text-sm font-montserrat mb-2 text-white/80">
+          Your NFT has been minted successfully.
         </p>
         <button
-          onClick={onClose}
-          className="mt-2 px-6 py-2 bg-gradient-to-r from-[#49FFFF] to-[#9900FF] text-white rounded font-bold uppercase shadow hover:opacity-90 transition"
+          onClick={() => {
+            window.open(`https://magiceden.io/monad-testnet`, "_blank");
+          }}
+          className="px-6 py-3 mt-6 mx-auto w-full sm:w-[240px] bg-[#836EF9] text-white rounded-md font-medium shadow hover:opacity-90 transition flex items-center text-xs sm:text-sm justify-center gap-2"
         >
-          Fermer
+          View on Marketplace
+        </button>
+        <button
+          onClick={() => {
+            const tweetText = `I just minted my Lost Discs #${
+              nftMinted.metadata?.name || "NFT"
+            } from @Monshape! 🎉`;
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              tweetText
+            )}`;
+            window.open(tweetUrl, "_blank");
+          }}
+          className="mt-3 px-6 py-3 mx-auto bg-[#1D1D1D] w-full sm:w-[240px] text-white rounded-md font-medium shadow hover:opacity-90 transition flex items-center text-xs sm:text-sm justify-center gap-2"
+        >
+          Share on X (Twitter)
         </button>
       </div>
     </div>

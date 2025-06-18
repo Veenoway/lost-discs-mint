@@ -3,16 +3,17 @@
 import { NFT_ABI, NFT_ADDRESS } from "@/contract";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { readContract, waitForTransactionReceipt } from "viem/actions";
 import { formatUnits, parseUnits } from "viem/utils";
 import {
   useAccount,
   useConnect,
   usePublicClient,
   useReadContract,
+  useSignMessage,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import { readContract } from "wagmi/actions";
 
 interface NFTMetadata {
   tokenId: bigint;
@@ -45,6 +46,13 @@ export function useNFT() {
   const [nftMetadata, setNftMetadata] = useState<NFTMetadata[]>([]);
   const [isLoadingNFTs, setIsLoadingNFTs] = useState(false);
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const {
+    signMessage,
+    data: signature,
+    isError: isSignError,
+    isLoading: isSignLoading,
+  } = useSignMessage();
+  const { writeContractAsync } = useWriteContract();
 
   const { data: maxSupply } = useReadContract({
     address: NFT_ADDRESS,
@@ -117,9 +125,9 @@ export function useNFT() {
     args: address ? [address] : undefined,
   });
 
-  const { writeContract, data: hash, error } = useWriteContract();
+  const { writeContract, data: txHash, error } = useWriteContract();
   const { isLoading: isMintLoading, isSuccess: isMintSuccess } =
-    useWaitForTransactionReceipt({ hash });
+    useWaitForTransactionReceipt({ hash: txHash });
 
   const formatMON = (weiAmount: bigint | undefined): string => {
     if (!weiAmount) return "0";
@@ -180,9 +188,8 @@ export function useNFT() {
   const mint = async (isOG: boolean = false) => {
     if (!isConnected) {
       await connect({ connector: connectors[0] });
-      return null;
+      return false;
     }
-
     if (!publicClient) {
       throw new Error("Client unavailable");
     }
@@ -190,44 +197,30 @@ export function useNFT() {
     const mintPrice = getMintPrice();
 
     try {
-      const txHash = await writeContract({
+      const hash = await writeContractAsync({
         address: NFT_ADDRESS,
         abi: NFT_ABI,
         functionName: "mint",
         args: [isOG],
         value: mintPrice,
-        account: address,
-        gas: BigInt(300000),
+        gas: BigInt(300_000),
       });
 
-      if (typeof txHash === "string") {
-        await waitForTransactionReceipt(publicClient, {
-          hash: txHash as `0x${string}`,
-          confirmations: 1,
-        });
-
-        invalidateQueries();
-
-        try {
-          const currentTotalMinted = (await readContract(publicClient, {
-            address: NFT_ADDRESS,
-            abi: NFT_ABI,
-            functionName: "totalMinted",
-          })) as bigint;
-
-          const newTokenId = currentTotalMinted - BigInt(1);
-          setLastMintedTokenId(newTokenId);
-        } catch (err) {
-          console.error("Error retrieving totalMinted:", err);
-        }
-
-        return { success: true, hash: txHash };
+      const { status } = await publicClient.waitForTransactionReceipt({ hash });
+      return status === "success";
+    } catch (err: unknown) {
+      if (
+        typeof err === "object" &&
+        err &&
+        "shortMessage" in err &&
+        typeof err.shortMessage === "string" &&
+        err.shortMessage.includes("User rejected")
+      ) {
+        console.log("Transaction rejetée");
       } else {
-        throw new Error("Invalid transaction hash");
+        console.error("Error during mint:", err);
       }
-    } catch (error) {
-      console.error("Error during mint:", error);
-      throw new Error("Transaction failed. Check parameters and try again.");
+      return false;
     }
   };
 
@@ -273,6 +266,33 @@ export function useNFT() {
     }
   }, [address, publicClient]);
 
+  useEffect(() => {
+    if (txHash && publicClient) {
+      (async () => {
+        const receipt = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+          confirmations: 1,
+        });
+        if (receipt.status === "success") {
+          invalidateQueries();
+
+          try {
+            const currentTotalMinted = (await readContract(publicClient, {
+              address: NFT_ADDRESS,
+              abi: NFT_ABI,
+              functionName: "totalMinted",
+            })) as bigint;
+
+            const newTokenId = currentTotalMinted - BigInt(1);
+            setLastMintedTokenId(newTokenId);
+          } catch (err) {
+            console.error("Error retrieving totalMinted:", err);
+          }
+        }
+      })();
+    }
+  }, [txHash, publicClient]);
+
   const formatUserMintStatus = () => {
     if (
       !userMintStatus ||
@@ -309,6 +329,66 @@ export function useNFT() {
     };
   };
 
+  const verifySignature = async (
+    address: string,
+    signature: string,
+    message: string
+  ) => {
+    try {
+      const response = await fetch("/api/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ address, signature, message }),
+      });
+      const data = await response.json();
+      return data.isValid;
+    } catch (error) {
+      console.error("Error verifying signature:", error);
+      return false;
+    }
+  };
+
+  const requestSignature = async () => {
+    if (!isConnected) {
+      await connect({ connector: connectors[0] });
+      return null;
+    }
+    try {
+      const message = "I confirm I own this wallet. Mint with signature";
+      await signMessage({ message });
+      return signature;
+    } catch (error) {
+      console.error("Erreur lors de la signature:", error);
+      return null;
+    }
+  };
+
+  const mintWithSignature = async () => {
+    if (!isConnected) {
+      await connect({ connector: connectors[0] });
+      return;
+    }
+
+    if (!signature) {
+      await requestSignature();
+      return;
+    }
+
+    const message = "I confirm I own this wallet. Mint with signature";
+    const isValid = await verifySignature(
+      address || "",
+      signature || "",
+      message
+    );
+    if (!isValid) {
+      await requestSignature();
+      return;
+    }
+
+    const success = await mint();
+    return success;
+  };
+
   return {
     maxSupply: Number(maxSupply ?? 0),
     totalMinted: Number(totalMinted ?? 0),
@@ -340,5 +420,12 @@ export function useNFT() {
     mintPrice,
     nftMetadata,
     userNFTs,
+
+    verifySignature,
+    requestSignature,
+    signature,
+    isSignError,
+    isSignLoading,
+    mintWithSignature,
   };
 }

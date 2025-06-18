@@ -227,7 +227,7 @@ export function NFT() {
     maxSupply,
     totalMinted,
     isPaused,
-    mint,
+    mintWithSignature,
     isSuccess: isMintSuccess,
     userMintStatus,
     mintPhaseInfo,
@@ -259,159 +259,32 @@ export function NFT() {
         return;
       }
 
-      const result = await mint(false);
+      const result = await mintWithSignature();
       setMintingStep("confirming");
-
-      if (result && result.success) {
+      if (result) {
         setMintingStep("success");
 
         if (successTimeoutRef.current) {
           clearTimeout(successTimeoutRef.current);
         }
-
-        successTimeoutRef.current = setTimeout(() => {
-          setMintingStep("idle");
-          successTimeoutRef.current = null;
-        }, 3000);
-
-        setTimeout(() => {
-          if (lastMintedTokenId) {
-            setLastMintedNFT({
-              id: String(lastMintedTokenId),
-              image: "/placeholder-nft.png",
-            });
-          } else {
-            checkForNFTMetadata();
-            setLastMintedNFT({
-              id: String(29),
-              image: "/placeholder-nft.png",
-            });
-          }
-
-          if (successTimeoutRef.current) {
-            clearTimeout(successTimeoutRef.current);
-            successTimeoutRef.current = null;
-          }
-        }, 1000);
+      } else {
+        setMintingStep("idle");
       }
     } catch (error) {
       console.error("Mint error:", error);
     }
   };
 
-  const [attempts, setAttempts] = useState(0);
-  const MAX_ATTEMPTS = 2;
-
-  const checkForNFTMetadata = async () => {
-    if (attempts >= MAX_ATTEMPTS) {
-      if (lastMintedTokenId) {
-        setLastMintedNFT({
-          id: String(lastMintedTokenId),
-          image: "/placeholder-nft.png",
-        });
-      } else if (totalMinted) {
-        const tokenId = Number(totalMinted) - 1;
-        setLastMintedNFT({
-          id: String(tokenId),
-          image: "/placeholder-nft.png",
-        });
-      }
-      return;
-    }
-
-    setAttempts((prev) => prev + 1);
-
-    try {
-      if (lastMintedTokenId) {
-        setLastMintedNFT({
-          id: String(lastMintedTokenId),
-          image: "/placeholder-nft.png",
-        });
-        return;
-      }
-
-      if (totalMinted) {
-        const tokenId = Number(totalMinted) - 1;
-        setLastMintedNFT({
-          id: String(tokenId),
-          image: "/placeholder-nft.png",
-        });
-      } else {
-        setLastMintedNFT({
-          id: "?",
-          image: "/placeholder-nft.png",
-        });
-      }
-    } catch (error) {
-      console.error("Error checking NFT metadata:", error);
-      setLastMintedNFT({
-        id: lastMintedTokenId ? String(lastMintedTokenId) : "?",
-        image: "/placeholder-nft.png",
-      });
-    }
-  };
-
-  useEffect(() => {
-    console.log(isMintSuccess, lastMintedTokenId, "ISMINT");
-    if (isMintSuccess) {
-      setMintingStep("success");
-
-      // Affiche la popup avec l'id du NFT minté
-      setLastMintedNFT({
-        id: String(lastMintedTokenId),
-        image: "/placeholder-nft.png", // ou l'image réelle si tu l'as
-      });
-
-      if (successTimeoutRef.current) {
-        clearTimeout(successTimeoutRef.current);
-      }
-
-      successTimeoutRef.current = setTimeout(() => {
-        setMintingStep("idle");
-        successTimeoutRef.current = null;
-      }, 3000);
-    }
-  }, [isMintSuccess, lastMintedTokenId]);
-
-  useEffect(() => {
-    return () => {
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-      }
-
-      if (successTimeoutRef.current) {
-        clearTimeout(successTimeoutRef.current);
-      }
-    };
-  }, []);
-
   const isSoldOut = totalMinted >= maxSupply;
   const userCanMint =
     canCurrentlyMint && !isPaused && (!whitelistOnly || isWhitelisted);
 
-  useEffect(() => {
-    const hasSeenPopup = localStorage.getItem("hasSeenCollectionInfoPopup");
-    if (hasSeenPopup) {
-    }
-  }, []);
-
-  useEffect(() => {
-    if (lastMintedTokenId) {
-      setLastMintedNFT({
-        id: String(lastMintedTokenId),
-        image: "/placeholder-nft.png",
-      });
-    }
-  }, [lastMintedTokenId]);
-
   return (
     <>
-      {lastMintedNFT && (
-        <MintedNFTModal
-          nft={lastMintedNFT}
-          onClose={() => setLastMintedNFT(null)}
-        />
-      )}
+      <MintedNFTModal
+        mintingStep={mintingStep}
+        onClose={() => setMintingStep("idle")}
+      />
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />
         <Header />
