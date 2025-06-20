@@ -24,9 +24,11 @@ type NFTMetadata = {
 export function MintedNFTModal({
   mintingStep,
   onClose,
+  mintedTokenId,
 }: {
   mintingStep: string;
   onClose: () => void;
+  mintedTokenId?: string;
 }) {
   const { address } = useAccount();
   const publicClient = usePublicClient();
@@ -73,7 +75,35 @@ export function MintedNFTModal({
     }
   };
 
-  const fetchUserNFTs = async () => {
+  const fetchSpecificNFT = async (tokenId: string) => {
+    if (!publicClient || !address) return;
+
+    try {
+      const tokenURI = (await readContract(publicClient, {
+        address: NFT_ADDRESS,
+        abi: NFT_ABI,
+        functionName: "tokenURI",
+        args: [BigInt(tokenId)],
+      })) as string;
+
+      const metadata = await fetchNftMetadata(tokenURI);
+
+      const nft: NFT = {
+        tokenId,
+        metadataId: tokenId,
+        tokenURI,
+        metadata,
+      };
+
+      setNftMinted(nft);
+    } catch (error) {
+      console.error("Failed to fetch specific NFT:", error);
+      await fetchLastNFT();
+    } finally {
+    }
+  };
+
+  const fetchLastNFT = async () => {
     if (!publicClient || !address) return;
 
     try {
@@ -84,36 +114,39 @@ export function MintedNFTModal({
         args: [address],
       })) as [bigint[], bigint[], string[]];
 
-      const updatedNFTs: NFT[] = [];
-
-      for (let i = 0; i < userNFTs[0].length; i++) {
-        const tokenId = userNFTs[0][i].toString();
-        const tokenURI = userNFTs[2][i];
+      if (userNFTs[0].length > 0) {
+        const lastIndex = userNFTs[0].length - 1;
+        const tokenId = userNFTs[0][lastIndex].toString();
+        const tokenURI = userNFTs[2][lastIndex];
 
         const metadata = await fetchNftMetadata(tokenURI);
 
-        updatedNFTs.push({
+        const lastNFT: NFT = {
           tokenId,
-          metadataId: userNFTs[1][i].toString(),
+          metadataId: userNFTs[1][lastIndex].toString(),
           tokenURI,
           metadata,
-        });
-      }
-      if (userNFTs[0].length > 0) {
-        const lastNFT = updatedNFTs[updatedNFTs.length - 1];
+        };
+
         setNftMinted(lastNFT);
       }
     } catch (error) {
-      console.error("Failed to fetch NFTs:", error);
+      console.error("Failed to fetch last NFT:", error);
+    } finally {
     }
   };
 
   useEffect(() => {
-    if (!address || !publicClient) return;
-    fetchUserNFTs();
-  }, [address, publicClient]);
+    if (!address || !publicClient || mintingStep !== "success") return;
 
-  if (mintingStep !== "success" || !nftMinted) {
+    if (mintedTokenId) {
+      fetchSpecificNFT(mintedTokenId);
+    } else {
+      fetchLastNFT();
+    }
+  }, [address, publicClient, mintingStep, mintedTokenId]);
+
+  if (mintingStep !== "success") {
     return null;
   }
 
@@ -139,54 +172,57 @@ export function MintedNFTModal({
         >
           ×
         </button>
-        <h2 className="text-white text-2xl sm:text-3xl font-bold mb-6">
-          Mint Successful!
-        </h2>
-        <video
-          src={
-            nftMinted.metadata?.animation_url?.includes("ipfs://")
-              ? nftMinted.metadata?.animation_url?.replace(
-                  "ipfs://",
-                  "https://gateway.pinata.cloud/ipfs/"
-                )
-              : nftMinted.metadata?.animation_url?.replace(
-                  "ipfs/",
-                  "https://gateway.pinata.cloud/ipfs/"
-                )
-          }
-          autoPlay
-          loop
-          playsInline
-          className="w-[200px] h-[200px] object-cover rounded-lg mx-auto mb-4 border border-white/10"
-        />
-        <p className="text-white text-base sm:text-lg font-semibold mb-2">
-          {nftMinted.metadata?.name || "NFT"}
-        </p>
-        <p className="text-white text-xs sm:text-sm font-montserrat mb-2 text-white/80">
-          Your NFT has been minted successfully.
-        </p>
-        <button
-          onClick={() => {
-            window.open(`https://magiceden.io/monad-testnet`, "_blank");
-          }}
-          className="px-6 py-3 mt-6 mx-auto w-full sm:w-[240px] bg-[#836EF9] text-white rounded-md font-medium shadow hover:opacity-90 transition flex items-center text-xs sm:text-sm justify-center gap-2"
-        >
-          View on Marketplace
-        </button>
-        <button
-          onClick={() => {
-            const tweetText = `I just minted my Lost Discs #${
-              nftMinted.metadata?.name || "NFT"
-            } from @Monshape! 🎉`;
-            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              tweetText
-            )}`;
-            window.open(tweetUrl, "_blank");
-          }}
-          className="mt-3 px-6 py-3 mx-auto bg-[#1D1D1D] w-full sm:w-[240px] text-white rounded-md font-medium shadow hover:opacity-90 transition flex items-center text-xs sm:text-sm justify-center gap-2"
-        >
-          Share on X (Twitter)
-        </button>
+
+        <>
+          <h2 className="text-white text-2xl sm:text-3xl font-bold mb-6">
+            Mint Successful!
+          </h2>
+          <video
+            src={
+              nftMinted?.metadata?.animation_url?.includes("ipfs://")
+                ? nftMinted?.metadata?.animation_url?.replace(
+                    "ipfs://",
+                    "https://gateway.pinata.cloud/ipfs/"
+                  )
+                : nftMinted?.metadata?.animation_url?.replace(
+                    "ipfs/",
+                    "https://gateway.pinata.cloud/ipfs/"
+                  )
+            }
+            autoPlay
+            loop
+            playsInline
+            className="w-[200px] h-[200px] object-cover rounded-lg mx-auto mb-4 border border-white/10"
+          />
+          <p className="text-white text-base sm:text-lg font-semibold mb-2">
+            {nftMinted?.metadata?.name || `Lost Disc #${nftMinted?.tokenId}`}
+          </p>
+          <p className="text-white text-xs sm:text-sm font-montserrat mb-2 text-white/80">
+            Your NFT has been minted successfully.
+          </p>
+          <button
+            onClick={() => {
+              window.open(`https://magiceden.io/monad-testnet`, "_blank");
+            }}
+            className="px-6 py-3 mt-6 mx-auto w-full sm:w-[240px] bg-[#836EF9] text-white rounded-md font-medium shadow hover:opacity-90 transition flex items-center text-xs sm:text-sm justify-center gap-2"
+          >
+            View on Marketplace
+          </button>
+          <button
+            onClick={() => {
+              const tweetText = `I just minted my Lost Discs #${
+                nftMinted?.metadata?.name || nftMinted?.tokenId
+              } from @Monshape! 🎉`;
+              const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                tweetText
+              )}`;
+              window.open(tweetUrl, "_blank");
+            }}
+            className="mt-3 px-6 py-3 mx-auto bg-[#1D1D1D] w-full sm:w-[240px] text-white rounded-md font-medium shadow hover:opacity-90 transition flex items-center text-xs sm:text-sm justify-center gap-2"
+          >
+            Share on X (Twitter)
+          </button>
+        </>
       </div>
     </div>
   );

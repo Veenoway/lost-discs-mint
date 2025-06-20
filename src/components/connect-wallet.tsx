@@ -1,6 +1,5 @@
 "use client";
 
-import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 import { useAccount, useDisconnect, useSwitchChain } from "wagmi";
 import { WalletModal } from "./connect-modal";
@@ -10,7 +9,6 @@ export function WalletConnection() {
   const { disconnect } = useDisconnect();
   const { switchChainAsync } = useSwitchChain();
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const { openConnectModal } = useConnectModal();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {

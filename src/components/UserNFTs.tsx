@@ -159,14 +159,8 @@ export function UserNFTs() {
       </div>
 
       {isLoading && !hasLoaded ? (
-        // État de chargement initial
         <div className="h-[200px] flex items-center justify-center">
           <div className="text-center">
-            <div className="relative w-16 h-16 mx-auto mb-4">
-              <div className="absolute inset-0 rounded-full border-4 border-[#49FFFF] border-opacity-20 animate-ping"></div>
-              <div className="absolute inset-2 rounded-full border-4 border-[#9900FF] border-opacity-40 animate-pulse"></div>
-              <div className="absolute inset-4 rounded-full bg-gradient-to-r from-[#49FFFF] to-[#9900FF] animate-spin"></div>
-            </div>
             <p className="text-white/80 text-sm sm:text-lg font-medium">
               Loading your Lost Discs...
             </p>
@@ -185,16 +179,23 @@ export function UserNFTs() {
             return (
               <div
                 key={`nft-${tokenId}`}
-                className="relative transition-all duration-500 min-w-[145px] pb-3 rounded-[9px] scrollbar-hide hover:scale-105"
+                className="relative transition-all duration-500 min-w-[145px] pb-3 rounded-[9px] scrollbar-hide "
               >
                 <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1 border border-white/20 hover:border-white/40 transition-all duration-300">
                   <div className="relative w-full h-auto">
-                    {!metadata?.animation_url ? (
+                    {metadata?.animation_url ? (
                       <video
-                        src={metadata?.animation_url?.replace(
-                          "ipfs.io",
-                          "gateway.pinata.cloud"
-                        )}
+                        src={
+                          metadata?.animation_url?.includes("ipfs://")
+                            ? metadata?.animation_url?.replace(
+                                "ipfs://",
+                                "https://gateway.pinata.cloud/ipfs/"
+                              )
+                            : metadata?.animation_url?.replace(
+                                "ipfs/",
+                                "https://gateway.pinata.cloud/ipfs/"
+                              )
+                        }
                         className="w-full h-[134px] sm:h-[134px] object-cover rounded-lg"
                         loop
                         muted
@@ -232,21 +233,6 @@ export function UserNFTs() {
       ) : (
         <div className="h-[200px] flex items-center justify-center">
           <div className="text-center">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#49FFFF] to-[#9900FF] opacity-60 flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                />
-              </svg>
-            </div>
             <p className="text-white/80 text-sm sm:text-lg font-medium">
               No Lost Discs found
             </p>

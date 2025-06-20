@@ -224,6 +224,7 @@ export function NFT() {
     mintWithSignature,
     userMintStatus,
     mintPhaseInfo,
+    lastMintedTokenId,
   } = useNFT();
 
   const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
@@ -276,6 +277,7 @@ export function NFT() {
       <MintedNFTModal
         mintingStep={mintingStep}
         onClose={() => setMintingStep("idle")}
+        mintedTokenId={lastMintedTokenId?.toString()}
       />
       <main className="min-h-screen font-montserrat w-screen text-white flex flex-col sm:pt-0 transition-all duration-1000 ease-in-out relative justify-center">
         <BackgroundWrapper />

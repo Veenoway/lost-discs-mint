@@ -270,12 +270,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$wagmi$2f$dis
 ;
 ;
 function WalletConnection() {
-    // const { open } = useAppKit();
-    const [open, setOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const { address, isConnecting, chainId } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$wagmi$2f$dist$2f$esm$2f$hooks$2f$useAccount$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAccount"])();
     const { disconnect } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$wagmi$2f$dist$2f$esm$2f$hooks$2f$useDisconnect$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useDisconnect"])();
     const { switchChainAsync } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$wagmi$2f$dist$2f$esm$2f$hooks$2f$useSwitchChain$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSwitchChain"])();
     const [isInitialLoading, setIsInitialLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [open, setOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (address) {
             setIsInitialLoading(false);
@@ -307,14 +306,14 @@ function WalletConnection() {
     if (address && isWrongNetwork) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
             onClick: handleSwitchNetwork,
-            className: " flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px]  px-2.5 sm:px-5 py-5 text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed",
+            className: " flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5 text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed",
             style: {
                 fontWeight: "900"
             },
             children: "Switch Network"
         }, void 0, false, {
             fileName: "[project]/src/components/connect-wallet.tsx",
-            lineNumber: 47,
+            lineNumber: 45,
             columnNumber: 7
         }, this);
     }
@@ -327,21 +326,21 @@ function WalletConnection() {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: ()=>setOpen(true),
                     className: `
-             flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
-             text-lg sm:text-xl text-white transition-all duration-300 ease-in-out
-             ${isConnecting ? "opacity-50 cursor-not-allowed" : ""}`,
+                   flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
+                   text-lg sm:text-xl text-white transition-all duration-300 ease-in-out
+                   ${isConnecting ? "opacity-50 cursor-not-allowed" : ""}`,
                     style: {
                         fontWeight: "900"
                     },
                     children: "Connect Wallet"
                 }, void 0, false, {
                     fileName: "[project]/src/components/connect-wallet.tsx",
-                    lineNumber: 66,
+                    lineNumber: 64,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/connect-wallet.tsx",
-                lineNumber: 65,
+                lineNumber: 63,
                 columnNumber: 9
             }, this),
             address && !isWrongNetwork && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -349,27 +348,27 @@ function WalletConnection() {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: handleDisconnect,
                     className: `
-                flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
-                text-lg sm:text-xl text-white font-semibold transition-all duration-300 ease-in-out
-                ${isConnecting || isInitialLoading ? "animate-pulse" : ""}`,
+              flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
+              text-lg sm:text-xl text-white font-semibold transition-all duration-300 ease-in-out
+              ${isConnecting || isInitialLoading ? "animate-pulse" : ""}`,
                     style: {
                         fontWeight: "900"
                     },
                     children: getDisplayText()
                 }, void 0, false, {
                     fileName: "[project]/src/components/connect-wallet.tsx",
-                    lineNumber: 82,
+                    lineNumber: 81,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/connect-wallet.tsx",
-                lineNumber: 81,
+                lineNumber: 80,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/connect-wallet.tsx",
-        lineNumber: 63,
+        lineNumber: 61,
         columnNumber: 5
     }, this);
 }
