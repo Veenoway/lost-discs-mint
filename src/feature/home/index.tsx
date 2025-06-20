@@ -210,7 +210,7 @@ const AudioPlayer = () => {
 
 export function NFT() {
   const { address, chainId } = useAccount();
-  const { switchChainAsync } = useSwitchChain();
+  const { switchChain } = useSwitchChain();
   const isWrongNetwork = chainId !== 10143;
   const [open, setOpen] = useState(false);
   const [mintingStep, setMintingStep] = useState<
@@ -236,9 +236,12 @@ export function NFT() {
 
   const handleSwitchNetwork = async () => {
     try {
-      await switchChainAsync({ chainId: 10143 });
+      await switchChain({ chainId: 10143 });
     } catch (error) {
       console.error("Network switching error:", error);
+      alert(
+        "Erreur lors du changement de réseau. Veuillez essayer de changer manuellement dans votre wallet."
+      );
     }
   };
 
@@ -260,6 +263,7 @@ export function NFT() {
       }
     } catch (error) {
       console.error("Mint error:", error);
+      setMintingStep("error");
     }
   };
 

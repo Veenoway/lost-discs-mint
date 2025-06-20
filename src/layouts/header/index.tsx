@@ -18,16 +18,44 @@ export const Header = () => {
         }}
       >
         <li>
-          <Link href="/">About</Link>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-[#836EF9]"
+          >
+            About
+          </Link>
         </li>
         <li>
-          <Link href="/">Lore</Link>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-[#836EF9]"
+          >
+            Lore
+          </Link>
         </li>
         <li>
-          <Link href="/">Collection</Link>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-[#836EF9]"
+          >
+            Collection
+          </Link>
         </li>
         <li>
-          <Link href="/">Docs</Link>
+          <Link
+            href="https://monshapes-documents.gitbook.io/lore/i.-the-lore-of-monshapes-founding"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-[#836EF9]"
+          >
+            Docs
+          </Link>
         </li>
       </ul>
       <WalletConnection />

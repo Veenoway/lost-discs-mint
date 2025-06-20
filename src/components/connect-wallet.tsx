@@ -1,16 +1,17 @@
 "use client";
 
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 import { useAccount, useDisconnect, useSwitchChain } from "wagmi";
 import { WalletModal } from "./connect-modal";
 
 export function WalletConnection() {
-  // const { open } = useAppKit();
-  const [open, setOpen] = useState(false);
   const { address, isConnecting, chainId } = useAccount();
   const { disconnect } = useDisconnect();
   const { switchChainAsync } = useSwitchChain();
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const { openConnectModal } = useConnectModal();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (address) {
@@ -22,13 +23,12 @@ export function WalletConnection() {
     if (isConnecting || isInitialLoading) return "Loading...";
     return `${address?.slice(0, 6)}...${address?.slice(-4)}`;
   };
+
   const isWrongNetwork = chainId !== 10143;
 
   const handleSwitchNetwork = async () => {
     try {
-      await switchChainAsync({
-        chainId: 10143,
-      });
+      await switchChainAsync({ chainId: 10143 });
     } catch (err) {
       console.error("Failed to switch network:", err);
     }
@@ -47,14 +47,14 @@ export function WalletConnection() {
       <button
         onClick={handleSwitchNetwork}
         className="
-          flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px]  px-2.5 sm:px-5 py-5
-           text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out
+          flex items-center rounded uppercase w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
+          text-lg sm:text-2xl text-white font-medium transition-all duration-300 ease-in-out
           disabled:opacity-50 disabled:cursor-not-allowed"
         style={{
           fontWeight: "900",
         }}
       >
-        Switch to Monad Testnet
+        Switch Network
       </button>
     );
   }
@@ -66,9 +66,9 @@ export function WalletConnection() {
           <button
             onClick={() => setOpen(true)}
             className={`
-             flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
-             text-lg sm:text-xl text-white transition-all duration-300 ease-in-out
-             ${isConnecting ? "opacity-50 cursor-not-allowed" : ""}`}
+                   flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
+                   text-lg sm:text-xl text-white transition-all duration-300 ease-in-out
+                   ${isConnecting ? "opacity-50 cursor-not-allowed" : ""}`}
             style={{
               fontWeight: "900",
             }}
@@ -77,14 +77,15 @@ export function WalletConnection() {
           </button>
         </WalletModal>
       )}
+
       {address && !isWrongNetwork && (
         <div className="flex items-center gap-4">
           <button
             onClick={handleDisconnect}
             className={`
-                flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
-                text-lg sm:text-xl text-white font-semibold transition-all duration-300 ease-in-out
-                ${isConnecting || isInitialLoading ? "animate-pulse" : ""}`}
+              flex items-center rounded uppercase mx-auto w-fit h-[40px] sm:h-[50px] px-2.5 sm:px-5 py-5
+              text-lg sm:text-xl text-white font-semibold transition-all duration-300 ease-in-out
+              ${isConnecting || isInitialLoading ? "animate-pulse" : ""}`}
             style={{
               fontWeight: "900",
             }}

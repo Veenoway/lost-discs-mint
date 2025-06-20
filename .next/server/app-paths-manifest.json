@@ -1,7 +1,5 @@
 {
   "/page": "app/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/pinata/route": "app/api/pinata/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/verify/route": "app/api/verify/route.js"
+  "/api/pinata/route": "app/api/pinata/route.js"
 }

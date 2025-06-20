@@ -1,7 +1,6 @@
 "use client";
 import { NFT_ABI, NFT_ADDRESS } from "@/contract";
 import { useEffect, useState } from "react";
-import { readContract } from "viem/actions";
 import { useAccount, usePublicClient } from "wagmi";
 
 type NFTMetadata = {
@@ -26,6 +25,8 @@ export function UserNFTs() {
   const { address } = useAccount();
   const publicClient = usePublicClient();
   const [nfts, setNfts] = useState<NFT[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const metadataCache = new Map<string, NFTMetadata>();
 
   const IPFS_GATEWAYS = ["https://ipfs.io/ipfs/"];
@@ -72,7 +73,8 @@ export function UserNFTs() {
     if (!publicClient || !address) return;
 
     try {
-      const userNFTs = (await readContract(publicClient, {
+      setIsLoading(true);
+      const userNFTs = (await publicClient.readContract({
         address: NFT_ADDRESS,
         abi: NFT_ABI,
         functionName: "getUserNFTsDetailed",
@@ -105,8 +107,12 @@ export function UserNFTs() {
 
         return hasChanged ? updatedNFTs : prev;
       });
+
+      setHasLoaded(true);
     } catch (error) {
       console.error("Failed to fetch NFTs:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -114,7 +120,7 @@ export function UserNFTs() {
     if (!address || !publicClient) return;
     fetchUserNFTs();
 
-    const interval = setInterval(fetchUserNFTs, 30_000); // toutes les 30s
+    const interval = setInterval(fetchUserNFTs, 5000);
     return () => clearInterval(interval);
   }, [address, publicClient]);
 
@@ -125,9 +131,15 @@ export function UserNFTs() {
           MY NFTS ( 0 )
         </h2>
         <div className="h-48 flex items-center justify-center">
-          <p className="text-white text-sm sm:text-xl">
-            Connect your wallet to see your NFTs
-          </p>
+          <div className="text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#49FFFF] to-[#9900FF] opacity-20 animate-pulse"></div>
+            <p className="text-white/70 text-sm sm:text-lg font-medium">
+              Connect your wallet to see your NFTs
+            </p>
+            <p className="text-white/50 text-xs sm:text-sm mt-2">
+              Your Lost Discs will appear here
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -139,48 +151,32 @@ export function UserNFTs() {
         <h2 className="text-lg sm:text-2xl text-white font-bold">
           MY NFTS ( {nfts.length || 0} )
         </h2>
-        {/* <div className="flex items-center gap-3">
-          <button
-            onClick={handleRefresh}
-            className={`${
-              isLoadingNFTs
-                ? "bg-[rgba(255,255,255,0.1)] cursor-not-allowed"
-                : "bg-brandColor hover:bg-[#6C07D1]"
-            } px-6 py-2 rounded text-base sm:text-xl flex uppercase transition-all duration-300 ease-in-out items-center gap-2`}
-            disabled={isLoadingNFTs}
-          >
-            {isLoadingNFTs && (
-              <div className="animate-spin mr-2 ">
-                <svg
-                  width={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="animate-spin"
-                  fill="none"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke={"currentColor"}
-                    strokeWidth={2}
-                  />
-                  <path
-                    className="opacity-75"
-                    fill={"currentColor"}
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
-              </div>
-            )}
-            Refresh
-          </button>
-        </div> */}
+        {isLoading && (
+          <div className="">
+            <div className="w-5 h-5 mx-auto border-2 border-white/30 border-t-white/80 rounded-full animate-spin"></div>
+          </div>
+        )}
       </div>
 
-      {nfts && nfts.length > 0 ? (
+      {isLoading && !hasLoaded ? (
+        // État de chargement initial
+        <div className="h-[200px] flex items-center justify-center">
+          <div className="text-center">
+            <div className="relative w-16 h-16 mx-auto mb-4">
+              <div className="absolute inset-0 rounded-full border-4 border-[#49FFFF] border-opacity-20 animate-ping"></div>
+              <div className="absolute inset-2 rounded-full border-4 border-[#9900FF] border-opacity-40 animate-pulse"></div>
+              <div className="absolute inset-4 rounded-full bg-gradient-to-r from-[#49FFFF] to-[#9900FF] animate-spin"></div>
+            </div>
+            <p className="text-white/80 text-sm sm:text-lg font-medium">
+              Loading your Lost Discs...
+            </p>
+            <p className="text-white/50 text-xs sm:text-sm mt-2">
+              Discovering your collection
+            </p>
+          </div>
+        </div>
+      ) : nfts && nfts.length > 0 ? (
+        // NFTs trouvés
         <div className="flex overflow-x-auto gap-3 scrollbar-hide">
           {nfts.map((nft) => {
             const tokenId = nft.tokenId;
@@ -189,9 +185,9 @@ export function UserNFTs() {
             return (
               <div
                 key={`nft-${tokenId}`}
-                className="relative transition-all duration-500 min-w-[145px] pb-3 rounded-[9px] scrollbar-hide"
+                className="relative transition-all duration-500 min-w-[145px] pb-3 rounded-[9px] scrollbar-hide hover:scale-105"
               >
-                <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1">
+                <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1 border border-white/20 hover:border-white/40 transition-all duration-300">
                   <div className="relative w-full h-auto">
                     {!metadata?.animation_url ? (
                       <video
@@ -234,15 +230,34 @@ export function UserNFTs() {
           })}
         </div>
       ) : (
-        <div className="h-[100px] sm:h-48 flex items-center justify-center">
-          {/* TODO: remove this */}
-          {true ? (
-            <div className="flex flex-col items-center">
-              <div className="animate-spin w-8 h-8 border-4 border-[#ffffff] border-t-transparent rounded-full"></div>
+        <div className="h-[200px] flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#49FFFF] to-[#9900FF] opacity-60 flex items-center justify-center">
+              <svg
+                className="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                />
+              </svg>
             </div>
-          ) : (
-            <p className="text-white text-sm sm:text-xl">No NFTs found.</p>
-          )}
+            <p className="text-white/80 text-sm sm:text-lg font-medium">
+              No Lost Discs found
+            </p>
+            <p className="text-white/50 text-xs sm:text-sm mt-2 max-w-xs">
+              {address && isLoading
+                ? "Loading your Lost Discs..."
+                : address
+                ? "Mint your first Lost Disc to start your collection"
+                : "Connect your wallet to see your NFTs"}
+            </p>
+          </div>
         </div>
       )}
     </div>

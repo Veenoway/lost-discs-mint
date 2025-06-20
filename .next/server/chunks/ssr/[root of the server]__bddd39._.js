@@ -311,7 +311,7 @@ function WalletConnection() {
             style: {
                 fontWeight: "900"
             },
-            children: "Switch to Monad Testnet"
+            children: "Switch Network"
         }, void 0, false, {
             fileName: "[project]/src/components/connect-wallet.tsx",
             lineNumber: 47,
