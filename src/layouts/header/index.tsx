@@ -19,7 +19,7 @@ export const Header = () => {
       >
         <li>
           <Link
-            href="/"
+            href="https://monshapes-documents.gitbook.io/docs/monshape-lore"
             target="_blank"
             rel="noreferrer"
             className="hover:text-[#836EF9]"
@@ -29,7 +29,7 @@ export const Header = () => {
         </li>
         <li>
           <Link
-            href="/"
+            href="https://monshapes-documents.gitbook.io/docs"
             target="_blank"
             rel="noreferrer"
             className="hover:text-[#836EF9]"
@@ -39,7 +39,7 @@ export const Header = () => {
         </li>
         <li>
           <Link
-            href="/"
+            href="https://monshapes-documents.gitbook.io/docs/collections"
             target="_blank"
             rel="noreferrer"
             className="hover:text-[#836EF9]"
