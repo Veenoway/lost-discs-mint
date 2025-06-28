@@ -151,13 +151,7 @@ export function UserNFTs() {
         <h2 className="text-lg sm:text-2xl text-white font-bold">
           MY NFTS ( {nfts.length || 0} )
         </h2>
-        {isLoading && (
-          <div className="">
-            <div className="w-5 h-5 mx-auto border-2 border-white/30 border-t-white/80 rounded-full animate-spin"></div>
-          </div>
-        )}
       </div>
-
       {isLoading && !hasLoaded ? (
         <div className="h-[200px] flex items-center justify-center">
           <div className="text-center">
