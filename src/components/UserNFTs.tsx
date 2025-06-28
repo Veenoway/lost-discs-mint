@@ -132,7 +132,6 @@ export function UserNFTs() {
         </h2>
         <div className="h-48 flex items-center justify-center">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#49FFFF] to-[#9900FF] opacity-20 animate-pulse"></div>
             <p className="text-white/70 text-sm sm:text-lg font-medium">
               Connect your wallet to see your NFTs
             </p>

@@ -334,7 +334,9 @@ export function NFT() {
                         background:
                           "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                         boxShadow: "0px 0px 7.1px 1px #5F2AFF",
+                        transition: "all 0.3s ease",
                       }}
+                      className="hover:brightness-150"
                       onClick={() => setOpen(true)}
                     >
                       Connect Wallet
@@ -360,16 +362,17 @@ export function NFT() {
                             background:
                               "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                             boxShadow: "0px 0px 7.1px 1px #5F2AFF",
+                            transition: "all 0.3s ease",
                           }}
                           className={`
                           ${
                             mintingStep === "idle" ||
                             mintingStep === "preparing" ||
                             mintingStep === "confirming"
-                              ? "bg-[#A314B4] hover:bg-opacity-80"
+                              ? ""
                               : mintingStep === "success"
-                              ? "bg-[#241F6F]"
-                              : "bg-[#858585] cursor-not-allowed"
+                              ? ""
+                              : "bg-[#858585] cursor-not-allowed hover:brightness-150"
                           } 
                         `}
                           onClick={handleMint}
@@ -399,14 +402,16 @@ export function NFT() {
                           )}
                         </Button>
                       </div>
-                    ) : !userCanMint ? (
+                    ) : !userCanMint && address ? (
                       <Button
                         style={{
                           fontWeight: "800",
                           background:
                             "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                           boxShadow: "0px 0px 7.1px 1px #5F2AFF",
+                          transition: "all 0.3s ease",
                         }}
+                        className="hover:brightness-150"
                       >
                         NOT ELIGIBLE
                       </Button>
@@ -417,7 +422,9 @@ export function NFT() {
                           background:
                             "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
                           boxShadow: "0px 0px 7.1px 1px #5F2AFF",
+                          transition: "all 0.3s ease",
                         }}
+                        className="hover:brightness-150"
                       >
                         MINTED
                       </Button>
