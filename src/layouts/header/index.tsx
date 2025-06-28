@@ -4,7 +4,7 @@ import Link from "next/link";
 export const Header = () => {
   return (
     <header className="absolute pt-[20px] lg:pt-[40px] flex justify-between max-w-[95%] top-0 left-1/2 -translate-x-1/2 w-full">
-      <div className="h-[50px] md:h-[95px] flex items-center justify-center z-[1]">
+      <div className="h-[50px] md:h-[80px] flex items-center justify-center z-[1]">
         <img
           src="/icon/Logo_SVG.svg"
           alt="Logo"
