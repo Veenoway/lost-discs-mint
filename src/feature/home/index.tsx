@@ -498,12 +498,9 @@ export function NFT() {
                     >
                       <div
                         className={`${
-                          mintPhaseInfo?.currentPhase ===
-                            "First Come First Served" ||
-                          mintPhaseInfo?.currentPhase === "Team Only" ||
-                          mintPhaseInfo?.currentPhase === "Whitelist"
-                            ? "bg-green-600"
-                            : "bg-red-600"
+                          userMintStatus?.userStatus.includes("Not")
+                            ? "bg-red-600"
+                            : "bg-green-600"
                         } h-3 w-3 mr-3 rounded-sm font-medium text-base sm:text-xl sm:text-[20px] uppercase`}
                       />
 
