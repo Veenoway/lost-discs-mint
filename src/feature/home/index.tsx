@@ -229,6 +229,10 @@ export function NFT() {
 
   const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
   const userStatusInfo = userMintStatus?.userStatus || "";
+
+  const isDisconnected = !address;
+  const userMints = userMintStatus?.mintsDone || 0;
+  const maxMintsPerAddress = userMintStatus?.mintsAllowed || 0;
   const isWhitelisted =
     userStatusInfo.includes("WHITELIST") || userStatusInfo.includes("OG");
   const whitelistOnly =
@@ -434,27 +438,6 @@ export function NFT() {
 
                 {/* USER STATUS */}
                 {/* <div className="flex justify-between items-center mb-3">
-                  <div
-                    className={`pb-1 rounded-full flex items-center text-base sm:text-xl`}
-                  >
-                    <div
-                      className={`${
-                        isUserWL || isUserFCFS || isUserTeam
-                          ? "bg-green-600"
-                          : "bg-red-600"
-                      } h-4 w-4 mr-3 `}
-                    />
-
-                    {isDisconnected
-                      ? "NOT CONNECTED"
-                      : isUserTeam
-                      ? "ELIGIBLE TEAM"
-                      : isUserWL
-                      ? "ELIGIBLE WL"
-                      : isUserFCFS
-                      ? "ELIGIBLE FCFS"
-                      : "NOT ELIGIBLE"}
-                  </div>
                   {address && (
                     <div className="text-center">
                       <span className="text-base sm:text-xl text-gray-300 uppercase">
@@ -521,6 +504,27 @@ export function NFT() {
                           : "ENDED"}
                       </span>
                     </p>
+                    <div
+                      className={`pb-1 rounded-full flex items-center text-base sm:text-xl  mb-4`}
+                    >
+                      <div
+                        className={`${
+                          userMintStatus?.canCurrentlyMint
+                            ? "bg-green-600"
+                            : "bg-red-600"
+                        } h-3 w-3 mr-3 rounded-sm font-medium text-base sm:text-xl sm:text-[20px] uppercase`}
+                      />
+
+                      {isDisconnected
+                        ? "NOT CONNECTED"
+                        : userMintStatus?.userStatus.includes("Team")
+                        ? "ELIGIBLE TEAM"
+                        : userMintStatus?.userStatus.includes("Whitelist")
+                        ? "ELIGIBLE WL"
+                        : userMintStatus?.userStatus.includes("FCFS")
+                        ? "ELIGIBLE FCFS"
+                        : "NOT ELIGIBLE"}
+                    </div>
                     {/* <p className="text-white font-bold text-lg sm:text-[22px] uppercase">
                         {!isSoldOut && (
                           <CountdownTimer
