@@ -220,7 +220,6 @@ export function NFT() {
   const {
     maxSupply,
     totalMinted,
-    isPaused,
     mintWithSignature,
     userMintStatus,
     mintPhaseInfo,
@@ -228,14 +227,7 @@ export function NFT() {
   } = useNFT();
 
   const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
-  const userStatusInfo = userMintStatus?.userStatus || "";
-
   const isDisconnected = !address;
-  const isWhitelisted =
-    userStatusInfo.includes("WHITELIST") || userStatusInfo.includes("OG");
-  const whitelistOnly =
-    mintPhaseInfo?.currentPhase === "WHITELIST" ||
-    mintPhaseInfo?.currentPhase === "OG_SALE";
 
   const handleSwitchNetwork = async () => {
     try {
@@ -271,8 +263,7 @@ export function NFT() {
   };
 
   const isSoldOut = totalMinted >= maxSupply;
-  const userCanMint =
-    canCurrentlyMint && !isPaused && (!whitelistOnly || isWhitelisted);
+  const userCanMint = canCurrentlyMint;
 
   return (
     <>

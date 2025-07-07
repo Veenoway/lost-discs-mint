@@ -143,7 +143,7 @@ export function useNFT() {
       }
       case "Whitelist": {
         setMintPrice(BigInt(1 * 10 ** 18));
-        return BigInt(1 * 10 ** 18);
+        return BigInt(3 * 10 ** 18);
       }
       case "First Come First Served": {
         setMintPrice(BigInt(3 * 10 ** 18));
@@ -151,7 +151,7 @@ export function useNFT() {
       }
       case "Public Mint": {
         setMintPrice(BigInt(50 * 10 ** 18));
-        return BigInt(50 * 10 ** 18);
+        return BigInt(100 * 10 ** 18);
       }
       default:
         return BigInt(0);
