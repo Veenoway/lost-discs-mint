@@ -231,8 +231,6 @@ export function NFT() {
   const userStatusInfo = userMintStatus?.userStatus || "";
 
   const isDisconnected = !address;
-  const userMints = userMintStatus?.mintsDone || 0;
-  const maxMintsPerAddress = userMintStatus?.mintsAllowed || 0;
   const isWhitelisted =
     userStatusInfo.includes("WHITELIST") || userStatusInfo.includes("OG");
   const whitelistOnly =

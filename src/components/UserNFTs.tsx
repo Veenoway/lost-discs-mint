@@ -172,7 +172,7 @@ export function UserNFTs() {
             return (
               <div
                 key={`nft-${tokenId}`}
-                className="relative transition-all duration-500 min-w-[145px] pb-3 rounded-[9px] scrollbar-hide "
+                className="relative transition-all duration-500 min-w-[145px] sm:max-w-[145px] pb-3 rounded-[9px] scrollbar-hide "
               >
                 <div className="bg-[rgba(255,255,255,0.37)] backdrop-blur-md rounded-[9px] overflow-hidden p-1 border border-white/20 hover:border-white/40 transition-all duration-300">
                   <div className="relative w-full h-auto">
