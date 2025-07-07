@@ -254,7 +254,7 @@ export function MintedNFTModal({
           onClick={() => {
             const tweetText = `I just minted my Lost Discs #${
               nftMinted?.metadata?.name || nftMinted?.tokenId || "NFT"
-            } from @Monshape! 🎉`;
+            } from @Monshape. Mint now at https://disc.monshape.club/`;
             const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
               tweetText
             )}`;
