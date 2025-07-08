@@ -522,6 +522,10 @@ export function NFT() {
                         )}
                       </p> */}
                   </div>
+                  <p className="text-white font-medium text-base sm:text-xl sm:text-[20px] uppercase">
+                    {" "}
+                    NEXT: FCFS - 9th July 2 PM UTC
+                  </p>
                 </div>
               </div>
               <UserNFTs />{" "}
