@@ -228,7 +228,11 @@ export function NFT() {
 
   const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
   const isDisconnected = !address;
-
+  console.log(
+    "userMintStatus?.userStatus.includes",
+    userMintStatus?.userStatus.includes("FCFS"),
+    userMintStatus?.userStatus
+  );
   const handleSwitchNetwork = async () => {
     try {
       await switchChain({ chainId: 10143 });
@@ -522,10 +526,6 @@ export function NFT() {
                         )}
                       </p> */}
                   </div>
-                  <p className="text-white font-medium text-base sm:text-xl sm:text-[20px] uppercase">
-                    {" "}
-                    NEXT: FCFS - 9th July 2 PM UTC
-                  </p>
                 </div>
               </div>
               <UserNFTs />{" "}
