@@ -341,93 +341,15 @@ export function NFT() {
                   </WalletModal>
                 )}
 
-                {address && !isWrongNetwork && (
-                  <div className="flex items-center flex-col lg:flex-row gap-3 w-full mb-0 uppercase">
-                    {isSoldOut ? (
-                      <Button
-                        style={{
-                          fontWeight: "800",
-                        }}
-                      >
-                        Sold out!
-                      </Button>
-                    ) : userCanMint ? (
-                      <div className="flex items-center gap-5 w-full justify-center">
-                        <Button
-                          style={{
-                            fontWeight: "800",
-                            background:
-                              "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
-                            boxShadow: "0px 0px 7.1px 1px #5F2AFF",
-                            transition: "all 0.3s ease",
-                          }}
-                          className={`
-                          ${
-                            mintingStep === "idle" ||
-                            mintingStep === "preparing" ||
-                            mintingStep === "confirming"
-                              ? ""
-                              : mintingStep === "success"
-                              ? ""
-                              : "bg-[#858585] cursor-not-allowed hover:brightness-150"
-                          } 
-                        `}
-                          onClick={handleMint}
-                          disabled={
-                            mintingStep !== "idle" && mintingStep !== "error"
-                          }
-                        >
-                          {mintingStep === "preparing" && (
-                            <div className="flex items-center gap-2">
-                              Preparing...
-                            </div>
-                          )}
-                          {mintingStep === "confirming" && (
-                            <div className="flex items-center gap-2">
-                              Confirmation...
-                            </div>
-                          )}
-                          {mintingStep === "success" && (
-                            <div className="flex items-center gap-2">
-                              Success
-                            </div>
-                          )}
-                          {mintingStep === "idle" && (
-                            <>
-                              <div className="w-full">MINT</div>
-                            </>
-                          )}
-                        </Button>
-                      </div>
-                    ) : !userCanMint && address ? (
-                      <Button
-                        style={{
-                          fontWeight: "800",
-                          background:
-                            "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
-                          boxShadow: "0px 0px 7.1px 1px #5F2AFF",
-                          transition: "all 0.3s ease",
-                        }}
-                        className="hover:brightness-150"
-                      >
-                        NOT ELIGIBLE
-                      </Button>
-                    ) : (
-                      <Button
-                        style={{
-                          fontWeight: "800",
-                          background:
-                            "linear-gradient(90deg, #49FFFF70 0%, #9900FF70 100%)",
-                          boxShadow: "0px 0px 7.1px 1px #5F2AFF",
-                          transition: "all 0.3s ease",
-                        }}
-                        className="hover:brightness-150"
-                      >
-                        MINTED
-                      </Button>
-                    )}
-                  </div>
-                )}
+                <div className="flex items-center flex-col lg:flex-row gap-3 w-full mb-0 uppercase">
+                  <Button
+                    style={{
+                      fontWeight: "800",
+                    }}
+                  >
+                    Sold out!
+                  </Button>
+                </div>
 
                 {/* USER STATUS */}
                 {/* <div className="flex justify-between items-center mb-3">
@@ -454,7 +376,7 @@ export function NFT() {
                     <div
                       className="h-full transition-all duration-500"
                       style={{
-                        width: `${(totalMinted / (maxSupply || 1000)) * 100}%`,
+                        width: `100%`,
                         background:
                           "linear-gradient(90deg, #49FFFF 0%, #9900FF 100%)",
                       }}
@@ -470,7 +392,7 @@ export function NFT() {
                       Total minted
                     </span>
                     <span className="text-base sm:text-xl font-medium text-white">
-                      {totalMinted || 0} / {maxSupply || 377}
+                      {300} / {300}
                     </span>
                   </div>
                   <div className="h-[1px] w-full bg-white/50 my-2 sm:my-4" />
