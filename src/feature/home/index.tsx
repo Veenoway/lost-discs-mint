@@ -218,15 +218,12 @@ export function NFT() {
   >("idle");
 
   const {
-    maxSupply,
-    totalMinted,
-    mintWithSignature,
+    // mintWithSignature,
     userMintStatus,
     mintPhaseInfo,
     lastMintedTokenId,
   } = useNFT();
 
-  const canCurrentlyMint = userMintStatus?.canCurrentlyMint;
   const isDisconnected = !address;
   console.log(
     "userMintStatus?.userStatus.includes",
@@ -244,30 +241,27 @@ export function NFT() {
     }
   };
 
-  const handleMint = async () => {
-    try {
-      setMintingStep("preparing");
+  // const handleMint = async () => {
+  //   try {
+  //     setMintingStep("preparing");
 
-      if (chainId !== 10143) {
-        await handleSwitchNetwork();
-        return;
-      }
+  //     if (chainId !== 10143) {
+  //       await handleSwitchNetwork();
+  //       return;
+  //     }
 
-      const result = await mintWithSignature();
-      setMintingStep("confirming");
-      if (result) {
-        setMintingStep("success");
-      } else {
-        setMintingStep("idle");
-      }
-    } catch (error) {
-      console.error("Mint error:", error);
-      setMintingStep("error");
-    }
-  };
-
-  const isSoldOut = totalMinted >= maxSupply;
-  const userCanMint = canCurrentlyMint;
+  //     const result = await mintWithSignature();
+  //     setMintingStep("confirming");
+  //     if (result) {
+  //       setMintingStep("success");
+  //     } else {
+  //       setMintingStep("idle");
+  //     }
+  //   } catch (error) {
+  //     console.error("Mint error:", error);
+  //     setMintingStep("error");
+  //   }
+  // };
 
   return (
     <>
